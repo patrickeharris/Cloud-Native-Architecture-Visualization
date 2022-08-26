@@ -12,7 +12,7 @@ const Navbar = ({ ...props }) => {
 
     return (
         <div
-            className={`absolute top-0 left-0 h-screen w-1/4 overflow-x-clip ${props.className}`}
+            className={`absolute top-0 left-0 h-screen w-1/4 overflow-x-clip text-gray-50 ${props.className}`}
         >
             <nav
                 className={`relative bg-opacity-50 h-full w-full ease-in-out duration-200 ${
