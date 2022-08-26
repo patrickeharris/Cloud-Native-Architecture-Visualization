@@ -35,13 +35,7 @@ Learn more here:
 https://tailwindcss.com/docs/installation
 
 It is reccomended to install this VSCode extension for tailwind autocompletion:
-
-Name: Tailwind CSS IntelliSense
-Id: bradlc.vscode-tailwindcss
-Description: Intelligent Tailwind CSS tooling for VS Code
-Version: 0.8.6
-Publisher: Tailwind Labs
-VS Marketplace Link: https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss
+https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss
 
 ## Deploy on Vercel
 
