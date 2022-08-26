@@ -14,7 +14,7 @@ const gradientBackground = {
                       radial-gradient(at 35% 78%, rgb(32,32,37) 0, transparent 82%), 
                       radial-gradient(at 2% 94%, rgb(9,9,121) 0, transparent 69%), 
                       radial-gradient(at 92% 46%, rgba(0,212,255, .5) 0, transparent 88%), 
-                      radial-gradient(at 13% 86%, rgb(245, 245, 244) 0, transparent 98%), 
+                      radial-gradient(at 13% 86%, rgb(245, 245, 244) 0, transparent 78%), 
                       radial-gradient(at 85% 4%, rgb(0,0,0) 0, transparent 100%), 
                       radial-gradient(at 10% 30%, rgb(0,212,255) 0, transparent 39%)`,
     backgroundSize: "cover",
