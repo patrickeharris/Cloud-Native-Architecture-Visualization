@@ -32,8 +32,8 @@ const Navbar = ({ ...props }) => {
                     </button>
                 </div>
                 <ul className="flex flex-col p-8">
-                    {tabs.map((tab) => (
-                        <NavItem key={tab.name} ref={tab.href}>
+                    {tabs.map((tab, index) => (
+                        <NavItem key={index} href={tab.href}>
                             {tab.name}
                         </NavItem>
                     ))}

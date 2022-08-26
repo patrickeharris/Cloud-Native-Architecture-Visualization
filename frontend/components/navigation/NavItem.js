@@ -6,7 +6,7 @@ const NavItem = ({ ...props }) => {
         <li
             className={`my-6 underline underline-offset-2 decoration-yellow-200 ${props.className}`}
         >
-            <Link href={props.href}>
+            <Link href={props.href ? props.href : "/"}>
                 <a className="flex flex-col items-center">
                     <span className="text-base text-center font-hubballi">
                         {props.children}
