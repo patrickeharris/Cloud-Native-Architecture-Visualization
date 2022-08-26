@@ -1,4 +1,5 @@
 import React from "react";
+import TypewritterText from "../components/general/TypewritterText";
 
 /**
  * The home page of the web app, returned as a react component, auto-routed by next to "/"
@@ -6,10 +7,8 @@ import React from "react";
  */
 export default function Home() {
     return (
-        <div>
-            <main>
-                <h1 className="text-center pt-16 text-xl">guten morgen.</h1>
-            </main>
+        <div className="w-screen flex flex-row justify-center pt-16">
+            <TypewritterText text={"Welcome to our visualization tool."} />
         </div>
     );
 }

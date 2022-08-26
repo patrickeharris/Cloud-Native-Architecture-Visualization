@@ -1,12 +1,6 @@
 import React from "react";
 import Navbar from "../components/navigation/Navbar";
-
-const bgGradient = {
-    backgroundColor: "rgb(2,0,36)",
-    backgroundImage:
-        "linear-gradient(208deg, rgba(2,0,36,1) 0%, rgba(32,32,37,1) 34%, rgba(9,9,121,1) 80%, rgba(0,212,255,1) 100%)",
-    backgroundSize: "cover",
-};
+import Footer from "./general/Footer";
 
 const gradientBackground = {
     backgroundColor: `rgb(2,0,36)`,
@@ -20,18 +14,25 @@ const gradientBackground = {
     backgroundSize: "cover",
 };
 
+/**
+ * This is a layout for all pages, included in _app.js. Nextjs will auto-route
+ * pages from appjs and this layout will wrap them so that they include anything in this
+ * file (navbar, footer, bg, etc.).
+ * @param {Object} props The props passed to this object
+ * @param {React.Component[]} props.children The active page
+ * @returns {React.Component} The page surrounded by the layout
+ */
 const Layout = ({ children }) => {
     return (
-        <>
+        <div
+            className="h-fit text-gray-50 overflow-x-clip"
+            style={gradientBackground}
+        >
             <Navbar />
-            <div
-                className="w-screen h-screen text-gray-50"
-                style={gradientBackground}
-            >
-                {children}
-            </div>
-            <footer></footer>
-        </>
+
+            <main className="min-h-screen">{children}</main>
+            <Footer></Footer>
+        </div>
     );
 };
 
