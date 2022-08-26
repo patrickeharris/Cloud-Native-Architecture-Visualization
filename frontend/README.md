@@ -34,6 +34,15 @@ This app is using tailwind CSS to style JSX inline rather than writing css.
 Learn more here:
 https://tailwindcss.com/docs/installation
 
+It is reccomended to install this VSCode extension for tailwind autocompletion:
+
+Name: Tailwind CSS IntelliSense
+Id: bradlc.vscode-tailwindcss
+Description: Intelligent Tailwind CSS tooling for VS Code
+Version: 0.8.6
+Publisher: Tailwind Labs
+VS Marketplace Link: https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss
+
 ## Deploy on Vercel
 
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
