@@ -27,6 +27,16 @@ To learn more about Next.js, take a look at the following resources:
 
 You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
+## Tailwind CSS
+
+This app is using tailwind CSS to style JSX inline rather than writing css.
+
+Learn more here:
+[Tailwind CSS Docs](https://tailwindcss.com/docs/installation)
+
+Install this VSCode extension for tailwind autocompletion:
+[VS Marketplace - TailwindCSS Intellisense](https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss)
+
 ## Deploy on Vercel
 
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
