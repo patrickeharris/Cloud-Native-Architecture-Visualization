@@ -32,10 +32,10 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 This app is using tailwind CSS to style JSX inline rather than writing css.
 
 Learn more here:
-https://tailwindcss.com/docs/installation
+[Tailwind CSS Docs](https://tailwindcss.com/docs/installation)
 
-It is reccomended to install this VSCode extension for tailwind autocompletion:
-https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss
+Install this VSCode extension for tailwind autocompletion:
+[VS Marketplace - TailwindCSS Intellisense](https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss)
 
 ## Deploy on Vercel
 
