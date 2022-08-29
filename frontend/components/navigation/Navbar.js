@@ -3,7 +3,8 @@ import NavItem from "./NavItem";
 
 const tabs = [
     { name: "Home", href: "/" },
-    { name: "Visualizer", href: "/visualize" },
+    { name: "2D Visualizer", href: "/visualizer/2d" },
+    { name: "3D Visualizer", href: "/visualizer/3d" },
     { name: "Learn", href: "/learn" },
 ];
 

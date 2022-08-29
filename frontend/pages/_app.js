@@ -2,6 +2,7 @@ import React from "react";
 import "../styles/globals.css";
 import Head from "next/head";
 import Script from "next/script";
+import { useRouter } from "next/router";
 import Layout from "../components/Layout";
 
 // The following imports prevents a Font Awesome icon server-side rendering bug,
@@ -24,10 +25,15 @@ config.autoAddCss = false;
  * @returns
  */
 function MyApp({ Component, pageProps }) {
+    const router = useRouter();
+    const path = router.asPath;
+
+    const headerText = path.replace("/", " ");
+
     return (
         <>
             <Head>
-                <title>Anti-patterns</title>
+                <title>{headerText}</title>
                 <meta
                     name="description"
                     content="A web app to identify, detect, and educate about antipatterns."

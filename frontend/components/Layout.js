@@ -1,6 +1,6 @@
 import React from "react";
 import Navbar from "../components/navigation/Navbar";
-import Footer from "./general/Footer";
+import Footer from "../components/navigation/Footer";
 
 const gradientBackground = {
     backgroundColor: `rgb(2,0,36)`,
@@ -22,14 +22,13 @@ const gradientBackground = {
  * @param {React.Component[]} props.children The active page
  * @returns {React.Component} The page surrounded by the layout
  */
-const Layout = ({ children }) => {
+const Layout = ({ children, ...props }) => {
     return (
         <div
             className="h-fit text-gray-50 overflow-x-clip"
             style={gradientBackground}
         >
             <Navbar />
-
             <main className="min-h-screen">{children}</main>
             <Footer></Footer>
         </div>
