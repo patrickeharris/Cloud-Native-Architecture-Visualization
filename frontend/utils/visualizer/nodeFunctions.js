@@ -26,15 +26,14 @@ export function getShape(type) {
 export function getColor(node, graphData, threshold) {
     let { nodes, links } = graphData;
     let numNeighbors = getNeighbors(node, links).length;
-    // if (numNeighbors > threshold) {
-    //     return "rgb(255,0,0)";
-    // }
-    // if (numNeighbors > threshold / 2) {
-    //     return "rgba(255,160,0)";
-    // }
+     if (numNeighbors > threshold) {
+         return "rgb(255,0,0)";
+     }
+     if (numNeighbors > threshold / 2) {
+         return "rgba(255,160,0)";
+     }
 
-    // return "rgba(0,255,0)";
-    return "#fff";
+     return "rgba(0,255,0)";
 }
 
 // set node color based on if it is selected, hovered over, or a neighbor
