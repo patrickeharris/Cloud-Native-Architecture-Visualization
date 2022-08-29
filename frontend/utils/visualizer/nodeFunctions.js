@@ -31,7 +31,6 @@ export function getColor(node) {
         return "rgb(255,0,0)";
     }
     if (numNeighbors > threshold / 2) {
-        //node.color =
         return "rgba(255,160,0)";
     }
 

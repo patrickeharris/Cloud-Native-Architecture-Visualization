@@ -19,13 +19,13 @@ const Navbar = ({ ...props }) => {
 
     return (
         <div
-            className={`absolute top-0 left-0 h-full sm:w-80 w-full overflow-x-clip text-gray-50 ${props.className}`}
+            className={`absolute top-0 left-0 h-full sm:w-64 w-full overflow-x-clip text-gray-50 z-50 ${props.className}`}
         >
             <nav
-                className={`relative bg-opacity-50 h-full w-full ease-in-out duration-200 ${
+                className={`relative bg-opacity-90 h-full w-full ease-in-out duration-200 ${
                     navOpen
                         ? `bg-slate-900`
-                        : `sm:-translate-x-[17rem] bg-transparent`
+                        : `sm:-translate-x-[13rem] bg-transparent`
                 }`}
             >
                 <div className="absolute top-4 right-4 overflow-x-clip">

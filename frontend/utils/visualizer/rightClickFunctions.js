@@ -20,9 +20,9 @@ export const rightClickLink = (e) => {
 };
 
 // Hide right click menu when clicking out of it
-document.addEventListener("click", () => {
-    linkContextMenu.style.visibility = "hidden";
-});
+// document.addEventListener("click", () => {
+//     linkContextMenu.style.visibility = "hidden";
+// });
 
 // set right click menu's location on screen and show it
 export default function rightClick(e) {
