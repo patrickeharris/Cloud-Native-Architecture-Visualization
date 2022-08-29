@@ -15,8 +15,8 @@
         "3d-force-graph": "^1.70.13",
         "d3": "^7.6.1",
         "next": "12.2.5",
-        "react": "18.2.0",
-        "react-dom": "18.2.0",
+        "react": "17.0.2",
+        "react-dom": "17.0.2",
         "react-force-graph-3d": "^1.21.13",
         "three": "^0.143.0"
     },
