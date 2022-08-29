@@ -23,18 +23,18 @@ export function getShape(type) {
 }
 
 // Sets color of node
-export function getColor(node) {
-    let { nodes, links } = Graph.graphData();
+export function getColor(node, graphData, threshold) {
+    let { nodes, links } = graphData;
     let numNeighbors = getNeighbors(node, links).length;
+    // if (numNeighbors > threshold) {
+    //     return "rgb(255,0,0)";
+    // }
+    // if (numNeighbors > threshold / 2) {
+    //     return "rgba(255,160,0)";
+    // }
 
-    if (numNeighbors > threshold) {
-        return "rgb(255,0,0)";
-    }
-    if (numNeighbors > threshold / 2) {
-        return "rgba(255,160,0)";
-    }
-
-    return "rgba(0,255,0)";
+    // return "rgba(0,255,0)";
+    return "#fff";
 }
 
 // set node color based on if it is selected, hovered over, or a neighbor
@@ -95,15 +95,18 @@ export function getNeighbors(node, links) {
 }
 
 // Node is visible if contained in visibleNodes
-export function customNodeVisibility(node) {
-    return visibleNodes.includes(node);
+export function customNodeVisibility(node, visibleNodes) {
+    // return visibleNodes.includes(node);
+    return true;
 }
 
 // Link is visible if nodes on either end are visible
-export function customLinkVisibility(link) {
-    return (
-        customNodeVisibility(link.source) && customNodeVisibility(link.target)
-    );
+export function customLinkVisibility(link, visibleNodes) {
+    // return (
+    //     customNodeVisibility(link.source, visibleNodes) &&
+    //     customNodeVisibility(link.target, visibleNodes)
+    // );
+    return true;
 }
 
 // Event when node is clicked on

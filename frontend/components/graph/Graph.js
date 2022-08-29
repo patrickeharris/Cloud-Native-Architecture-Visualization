@@ -1,6 +1,7 @@
 import dynamic from "next/dynamic";
 import * as THREE from "three";
 import * as NodeFns from "../../utils/visualizer/nodeFunctions";
+import data from "../../public/data/pipeline.json";
 import { CustomSinCurve } from "../../utils/visualizer/ThreeExtensions";
 // import {
 //     rightClick,
@@ -23,15 +24,17 @@ const GraphComponent = () => {
     const [selectedNode, setSelectedNode] = useState();
     const [selectedLink, setSelectedLink] = useState();
     const [hoverNode, setHoverNode] = useState();
-    const [graphData, setGraphData] = useState();
-    const [visibleNodes, setVisibleNodes] = useState();
+    const [graphData, setGraphData] = useState(data);
+    const [visibleNodes, setVisibleNodes] = useState([]);
     const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
+    const [threshold, setThreshold] = useState(8);
 
     useEffect(() => {
         setDimensions({
             width: window.innerWidth / 1.5,
             height: window.innerHeight / 1.5,
         });
+        setVisibleNodes(graphData.nodes);
     }, []);
 
     // Highlight neighbors
@@ -107,11 +110,11 @@ const GraphComponent = () => {
                     ][NodeFns.getShape(node.nodeType)],
                     new THREE.MeshLambertMaterial({
                         // Setup colors
-                        color: highlights.nodes.has(node)
+                        color: highlightNodes.has(node)
                             ? node === hoverNode
                                 ? "rgb(50,50,200)"
                                 : "rgba(0,200,200)"
-                            : NodeFns.getColor(node),
+                            : NodeFns.getColor(node, graphData, threshold),
                         transparent: true,
                         opacity: 0.75,
                     })
@@ -119,21 +122,24 @@ const GraphComponent = () => {
             }
             nodeThreeObjectExtend={false}
             // Get data
-            /** TODO: load data from json "../data/pipeline.json" */
             graphData={graphData}
             // JSON column for node names
             nodeLabel="id"
             // Setup link width
-            linkWidth={(link) => (highlights.links.has(link) ? 4 : 1)}
+            linkWidth={(link) => (highlightLinks.has(link) ? 4 : 1)}
             // Setup data transfer visualization across links
             linkDirectionalParticles={(link) =>
-                highlights.links.has(link) ? 4 : 0
+                highlightLinks.has(link) ? 4 : 0
             }
             // Width of data transfer points
             linkDirectionalParticleWidth={4}
             // Setup visibility for filtering of nodes
-            nodeVisibility={(node) => NodeFns.customNodeVisibility(node)}
-            linkVisibility={(link) => NodeFns.customLinkVisibility(link)}
+            nodeVisibility={(node) =>
+                NodeFns.customNodeVisibility(node, visibleNodes)
+            }
+            linkVisibility={(link) =>
+                NodeFns.customLinkVisibility(link, visibleNodes)
+            }
             linkDirectionalArrowLength={3.5}
             linkDirectionalArrowRelPos={1}
             // Change where node is when clicking and dragging
