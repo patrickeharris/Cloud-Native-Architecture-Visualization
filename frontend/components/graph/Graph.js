@@ -67,8 +67,12 @@ const GraphComponent = () => {
         highlightLinks.clear();
         if (node) {
             highlightNodes.add(node);
-            node.neighbors.forEach((neighbor) => highlightNodes.add(neighbor));
-            node.links.forEach((link) => highlightLinks.add(link));
+            NodeFns.getNeighbors(node, data.links).forEach((neighbor) => highlightNodes.add(neighbor));
+            data.links.forEach((link) => {
+                if(link.source === node || link.target === node) {
+                    highlightLinks.add(link);
+                }
+            });
         }
 
         setHoverNode(node || null);
@@ -176,7 +180,7 @@ const GraphComponent = () => {
         />
     );
 
-    return <React.Suspense>{Graph}</React.Suspense>;
+    return Graph;
 };
 
 export default GraphComponent;
