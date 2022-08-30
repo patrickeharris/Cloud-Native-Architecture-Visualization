@@ -256,6 +256,7 @@ const GraphComponent = () => {
             width={dimensions.width}
             height={dimensions.height}
             ref={graphRef}
+            backgroundColor={"rgba(0,0,0,0)"}
         />
     );
 

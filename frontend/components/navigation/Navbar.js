@@ -19,13 +19,13 @@ const Navbar = ({ ...props }) => {
 
     return (
         <div
-            className={`absolute top-0 left-0 h-full sm:w-64 w-full overflow-x-clip text-gray-50 z-50 ${props.className}`}
+            className={`absolute top-0 left-0 w-fit h-full overflow-x-clip text-gray-50 ${props.className}`}
         >
             <nav
-                className={`relative bg-opacity-50 h-full w-full ease-in-out duration-200 ${
+                className={`relative bg-opacity-50 sm:w-64 ease-in-out z-50 h-full duration-200 ${
                     navOpen
                         ? `bg-slate-900`
-                        : `sm:-translate-x-[13rem] bg-transparent`
+                        : `sm:-translate-x-[13rem] bg-slate-900`
                 }`}
             >
                 <div className="absolute top-4 right-4 overflow-x-clip">
@@ -38,7 +38,7 @@ const Navbar = ({ ...props }) => {
                         <i className="fa-solid fa-bars fa-xl"></i>
                     </button>
                 </div>
-                <ul className="flex flex-col p-8">
+                <ul className={`flex flex-col p-8 ${navOpen ? `` : `hidden`}`}>
                     {tabs.map((tab, index) => (
                         <NavItem key={index} href={tab.href}>
                             {tab.name}
