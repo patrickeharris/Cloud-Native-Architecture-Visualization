@@ -6,7 +6,13 @@ import { CustomSinCurve } from "../../utils/visualizer/ThreeExtensions";
 //     rightClick,
 //     rightClickLink,
 // } from "../../utils/visualizer/rightClickFunctions.js";
-import React, { useEffect, useState, useRef, useCallback } from "react";
+import React, {
+    useEffect,
+    useState,
+    useRef,
+    useCallback,
+    useMemo,
+} from "react";
 import ForceGraph3D, { ForceGraphMethods } from "react-force-graph-3d";
 
 const GraphComponent = () => {
@@ -15,10 +21,10 @@ const GraphComponent = () => {
     const [selectedNode, setSelectedNode] = useState();
     const [selectedLink, setSelectedLink] = useState();
     const [hoverNode, setHoverNode] = useState();
-    const [graphData, setGraphData] = useState(data);
     const [visibleNodes, setVisibleNodes] = useState([]);
     const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
     const [threshold, setThreshold] = useState(8);
+    const [graphData, setGraphData] = useState(data);
 
     /** @type {ForceGraphMethods} */
     const graphRef = useRef();
