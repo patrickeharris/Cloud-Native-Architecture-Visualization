@@ -1,10 +1,10 @@
 import React from "react";
-import GraphComponent from "../../components/graph/Graph";
+import Graph from "../../components/graph/GraphWrapper";
 
 const ThreeD = () => {
     return (
         <div className="flex flex-row justify-center items-center w-full h-screen relative z-10">
-            <GraphComponent />
+            <Graph />
         </div>
     );
 };

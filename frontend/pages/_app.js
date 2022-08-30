@@ -2,8 +2,10 @@ import React from "react";
 import "../styles/globals.css";
 import Head from "next/head";
 import Script from "next/script";
-import { useRouter } from "next/router";
 import Layout from "../components/Layout";
+
+import { useRouter } from "next/router";
+import { getHeaderString } from "../utils/stringUtils";
 
 // The following imports prevents a Font Awesome icon server-side rendering bug,
 // where the icons flash from a very large icon down to a properly sized one:
@@ -28,12 +30,10 @@ function MyApp({ Component, pageProps }) {
     const router = useRouter();
     const path = router.asPath;
 
-    const headerText = path.replace("/", " ");
-
     return (
         <>
             <Head>
-                <title>{headerText}</title>
+                <title>{getHeaderString(router.asPath)}</title>
                 <meta
                     name="description"
                     content="A web app to identify, detect, and educate about antipatterns."

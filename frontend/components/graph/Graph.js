@@ -1,4 +1,3 @@
-import dynamic from "next/dynamic";
 import * as THREE from "three";
 import * as NodeFns from "../../utils/visualizer/nodeFunctions";
 import data from "../../public/data/pipeline.json";
@@ -7,16 +6,8 @@ import { CustomSinCurve } from "../../utils/visualizer/ThreeExtensions";
 //     rightClick,
 //     rightClickLink,
 // } from "../../utils/visualizer/rightClickFunctions.js";
-import React, { useEffect, useState, useLayoutEffect, useRef } from "react";
-
-/**
- * This has to be a dynamic import to work. Why? Idk.
- * https://github.com/vasturiano/react-force-graph/issues/352
- *
- */
-const ForceGraph3D = dynamic(() => import("react-force-graph-3d"), {
-    ssr: false,
-});
+import React, { useEffect, useState, useRef, useCallback } from "react";
+import ForceGraph3D, { ForceGraphMethods } from "react-force-graph-3d";
 
 const GraphComponent = () => {
     const [highlightNodes, setHighlightNodes] = useState(new Set());
@@ -29,13 +20,24 @@ const GraphComponent = () => {
     const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
     const [threshold, setThreshold] = useState(8);
 
+    /** @type {ForceGraphMethods} */
+    const graphRef = useRef();
+
+    /**
+     * https://reactjs.org/docs/hooks-effect.html
+     *
+     * React useEffect allows us to perform operations at certain points
+     * in a component's lifecycle or based on variables. The empty [] array
+     * at the end of this means that useEffect is only called once when
+     * the component renders.
+     */
     useEffect(() => {
         setDimensions({
-            width: window.innerWidth / 1.5,
-            height: window.innerHeight / 1.5,
+            width: window.innerWidth,
+            height: window.innerHeight,
         });
         setVisibleNodes(graphData.nodes);
-    }, []);
+    }, [window]);
 
     // Highlight neighbors
     function getHighlightNeighbors(node) {
@@ -63,16 +65,15 @@ const GraphComponent = () => {
 
     // Handle behavior on hovering over a node
     const handleNodeHover = (node) => {
+        // No state change
+        if ((!node && !highlightNodes.size) || (node && hoverNode === node))
+            return;
+
         highlightNodes.clear();
         highlightLinks.clear();
         if (node) {
             highlightNodes.add(node);
-            NodeFns.getNeighbors(node, data.links).forEach((neighbor) => highlightNodes.add(neighbor));
-            data.links.forEach((link) => {
-                if(link.source === node || link.target === node) {
-                    highlightLinks.add(link);
-                }
-            });
+            getHighlightNeighbors(node);
         }
 
         setHoverNode(node || null);
@@ -92,6 +93,79 @@ const GraphComponent = () => {
 
         updateHighlight();
     };
+
+    // Event when node is clicked on
+    const handleNodeClick = useCallback(
+        (node) => {
+            const distance = 100;
+            const distRatio = 1 + distance / Math.hypot(node.x, node.y, node.z);
+            if (graphRef.current) {
+                console.log(graphRef.current);
+                graphRef.current.cameraPosition(
+                    {
+                        x: node.x * distRatio,
+                        y: node.y * distRatio,
+                        z: node.z * distRatio,
+                    },
+                    node,
+                    1500
+                );
+            }
+
+            /** @TODO dim other nodes */
+
+            // Show info box
+            // const cb = document.querySelector("#menuToggle");
+            // cb.checked = true;
+
+            // Set info box data
+            // document.getElementById("nodeName").innerHTML = node.id;
+            // document.getElementById("nodeType").innerHTML =
+            //     "<b>Node Type: </b>" + node.nodeType;
+            // document.getElementById("nodeID").innerHTML =
+            //     "<b>Node ID: </b>" + node.nodeID;
+
+            // let found = false;
+            // let found2 = false;
+            // let newLinks = [];
+            // let dependLinks = [];
+
+            // // Searching for dependencies to display them
+            // allLinks.forEach((link) => {
+            //     if (link.source === node) {
+            //         found = true;
+            //         newLinks.push(link);
+            //     }
+            //     if (link.target === node) {
+            //         found2 = true;
+            //         dependLinks.push(link);
+            //     }
+            // });
+
+            // // Display dependencies in info box
+            // if (found) {
+            //     newLinks = newLinks.map((data) => {
+            //         data = "<li>" + data.target.id + "</li>";
+            //         return data;
+            //     });
+            //     dependencies.innerHTML = newLinks.join("");
+            // } else {
+            //     dependencies.innerHTML = "<li>N/A</li>";
+            // }
+
+            // // Display depends on in info box
+            // if (found2) {
+            //     dependLinks = dependLinks.map((data) => {
+            //         data = "<li>" + data.source.id + "</li>";
+            //         return data;
+            //     });
+            //     dependson.innerHTML = dependLinks.join("");
+            // } else {
+            //     dependson.innerHTML = "<li>N/A</li>";
+            // }
+        },
+        [graphRef]
+    );
 
     const Graph = (
         <ForceGraph3D
@@ -153,10 +227,8 @@ const GraphComponent = () => {
                 node.fz = node.z;
             }}
             // Select node on left click
-            // onNodeClick={(node) => {
-            //     NodeFns.nodeClick(node);
-            // }}
-            // Setup node right click menu
+            onNodeClick={handleNodeClick}
+            //  node right click menu
             onNodeRightClick={(node, e) => {
                 // Set selected node
                 setSelectedNode(node);
@@ -177,6 +249,7 @@ const GraphComponent = () => {
             }}
             width={dimensions.width}
             height={dimensions.height}
+            ref={graphRef}
         />
     );
 
