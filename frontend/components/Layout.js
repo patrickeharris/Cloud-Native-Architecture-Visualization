@@ -1,6 +1,7 @@
 import React from "react";
 import Navbar from "../components/navigation/Navbar";
 import Footer from "../components/navigation/Footer";
+import { useRouter } from "next/router";
 
 const gradientBackground = {
     backgroundColor: `rgb(2,0,36)`,
@@ -23,6 +24,7 @@ const gradientBackground = {
  * @returns {React.Component} The page surrounded by the layout
  */
 const Layout = ({ children, ...props }) => {
+    const { asPath } = useRouter();
     return (
         <div
             className="h-fit text-gray-50 overflow-x-clip"
@@ -30,7 +32,7 @@ const Layout = ({ children, ...props }) => {
         >
             <Navbar />
             <main className="min-h-screen">{children}</main>
-            <Footer></Footer>
+            {asPath !== "/visualizer/3d" ? <Footer></Footer> : <></>}
         </div>
     );
 };
