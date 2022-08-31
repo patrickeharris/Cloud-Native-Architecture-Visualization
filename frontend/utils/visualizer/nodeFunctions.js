@@ -105,3 +105,21 @@ export function customLinkVisibility(link, visibleNodes) {
         customNodeVisibility(link.target, visibleNodes)
     );
 }
+
+// Refresh visible nodes
+export function reset() {
+    Graph.nodeVisibility((node) => customNodeVisibility(node)).linkVisibility(
+        (link) => customLinkVisibility(link)
+    );
+    Graph.refresh();
+}
+
+// Set camera back to default view
+export function resetView() {
+    const coords = { x: initX, y: initY, z: initZ };
+    Graph.cameraPosition(
+        coords, // new position
+        { x: 0, y: 0, z: 0 }, // lookAt ({ x, y, z })
+        2000 // ms transition duration
+    );
+}

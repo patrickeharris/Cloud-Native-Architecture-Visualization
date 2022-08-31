@@ -1,3 +1,5 @@
+import { reset, resetView } from "./nodeFunctions";
+
 export function toggleTrack() {
     if (trackMenu.checked) {
         trackMenu.checked = false;
@@ -6,8 +8,8 @@ export function toggleTrack() {
     }
 }
 
-export function exportGraph() {
-    exportToJsonFile(Graph.graphData());
+export function exportGraph(graphData) {
+    exportToJsonFile(graphData);
 }
 
 export function exportToJsonFile(jsonData) {
@@ -62,66 +64,11 @@ export function importGraph() {
     input.click();
 }
 
-export function addNode() {
-    // When the add node form is submitted, this happens.
-    nodeForm.addEventListener("submit", (event) => {
-        event.preventDefault();
-
-        // Data Abstraction
-        let { nodes, links } = Graph.graphData();
-        let newName = event.target.elements.name.value;
-        let found = false;
-
-        // Check if node already exists
-        nodes.forEach((node) => {
-            if (node.id === newName) {
-                found = true;
-            }
-        });
-
-        // If node already exists, warn the user. If not, continue adding node.
-        if (found) {
-            window.alert("That node already exists! Try again.");
-        } else {
-            // Extract info about new node.
-            let newType = event.target.elements.node_type.value;
-            let newDeps = event.target.elements.dependencies.value;
-            let deps = newDeps.split(",");
-
-            // Create new node with info from form.
-            let node = {
-                id: newName,
-                nodeType: newType,
-                dependencies: deps,
-                nodeID: 23,
-            };
-            nodes.push(node);
-
-            // Create new links if new node has dependencies.
-            deps.forEach((d) => {
-                nodes.forEach((n) => {
-                    if (n.nodeID.toString() === d) {
-                        let link = {
-                            source: newName,
-                            target: n.id,
-                        };
-                        links.push(link);
-                    }
-                });
-            });
-
-            // Update graph data
-            Graph.graphData({
-                nodes: nodes,
-                links: links,
-            });
-
-            // Update the simulation
-            updateSimulation();
-            closeNodeForm();
-        }
-    });
-
-    // Show the add node form
-    nodeForm.style.display = "block";
+export function forceReset(graphData) {
+    let { nodes, links } = graphData;
+    cb.checked = false;
+    searchWrapper.classList.remove("active");
+    visibleNodes = nodes;
+    reset();
+    resetView();
 }

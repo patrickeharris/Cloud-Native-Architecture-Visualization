@@ -2,7 +2,7 @@ import React from "react";
 import Graph from "../../components/graph/GraphWrapper";
 import Script from "next/script";
 import Head from "next/head";
-import GraphButtonMenu from "../../components/graph/GraphButtons";
+import GraphMenu from "../../components/graph/GraphMenu";
 
 /**
  * This page renders the 3d force graph.
@@ -18,7 +18,7 @@ const ThreeD = () => {
                 {/* <Script src="../../utils/visualizer/drag.js"></Script> */}
             </Head>
             <div className="flex flex-row justify-center items-center w-full h-screen relative z-10">
-                <GraphButtonMenu />
+                <GraphMenu />
                 <Graph />
             </div>
         </>

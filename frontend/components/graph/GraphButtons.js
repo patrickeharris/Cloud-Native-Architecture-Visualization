@@ -21,7 +21,7 @@ const GraphButton = ({ onClick, ...props }) => {
 
 const GraphButtonMenu = () => {
     return (
-        <div className="absolute right-2 top-4 z-50 flex flex-col gap-2">
+        <div className="flex flex-col gap-2 w-fit h-fit">
             <GraphButton onClick={ButtonFns.importGraph}>Import</GraphButton>
             <GraphButton onClick={ButtonFns.exportGraph}>Export</GraphButton>
             <GraphButton onClick={() => window.requestAnimationFrame(download)}>
@@ -30,6 +30,7 @@ const GraphButtonMenu = () => {
             <GraphButton onClick={ButtonFns.toggleTrack}>
                 Track Menu
             </GraphButton>
+            <GraphButton onClick={ButtonFns.forceReset}>Reset</GraphButton>
         </div>
     );
 };
