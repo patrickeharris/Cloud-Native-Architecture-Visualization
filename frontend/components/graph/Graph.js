@@ -60,14 +60,9 @@ const GraphComponent = () => {
                 highlightLinks.add(link);
             }
         });
-        updateHighlight();
-    }
-
-    // Notify react stateful values to refresh based on new contents
-    const updateHighlight = () => {
         setHighlightNodes(highlightNodes);
         setHighlightLinks(highlightLinks);
-    };
+    }
 
     // Handle behavior on hovering over a node
     const handleNodeHover = (node) => {
@@ -83,7 +78,8 @@ const GraphComponent = () => {
         }
 
         setHoverNode(node || null);
-        updateHighlight();
+        setHighlightNodes(highlightNodes);
+        setHighlightLinks(highlightLinks);
     };
 
     // Handle behavior on hovering over a link
@@ -97,7 +93,8 @@ const GraphComponent = () => {
             highlightNodes.add(link.target);
         }
 
-        updateHighlight();
+        setHighlightNodes(highlightNodes);
+        setHighlightLinks(highlightLinks);
     };
 
     // Event when node is clicked on
