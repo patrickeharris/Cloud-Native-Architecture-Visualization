@@ -11,7 +11,8 @@ import * as ButtonFns from "../../utils/visualizer/buttonFns";
 const GraphButton = ({ onClick, ...props }) => {
     return (
         <button
-            className={`border-2 rounded-lg px-2 py-1 text-center text-sm mx-2 transition hover:bg-gradient-to-br hover:from-cyan-800 hover:to-green-800 bg-slate-900 bg-opacity-40 border-opacity-40 ${props.className}`}
+            className={`border-2 rounded-lg px-2 py-1 text-center text-sm mx-2 transition
+            hover:bg-cyan-400 bg-slate-900 bg-opacity-40 hover:bg-opacity-40 border-opacity-40 ${props.className}`}
             onClick={onClick}
         >
             {props.children}
@@ -21,7 +22,7 @@ const GraphButton = ({ onClick, ...props }) => {
 
 const GraphButtonMenu = () => {
     return (
-        <div className="flex flex-col gap-2 w-fit h-fit">
+        <div className="flex flex-col gap-2 w-full h-fit">
             <GraphButton onClick={ButtonFns.importGraph}>Import</GraphButton>
             <GraphButton onClick={ButtonFns.exportGraph}>Export</GraphButton>
             <GraphButton onClick={() => window.requestAnimationFrame(download)}>

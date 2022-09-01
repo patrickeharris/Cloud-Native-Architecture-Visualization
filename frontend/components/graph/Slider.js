@@ -7,17 +7,21 @@ const Slider = () => {
         setValue(e.target.value);
     };
     return (
-        <div className="w-full h-6 p-0 bg-transparent accent-gray-50 border-none ">
+        <div className="w-full h-fit p-0 my-4 bg-transparent accent-gray-50 border-none active:accent-cyan-300">
+            <label for="slider" className="h-fit">
+                Threshold
+            </label>
+            <br />
             <input
                 type="range"
                 min="0"
                 max="100"
                 value={value}
                 onInput={(e) => handleInput(e)}
+                id="slider"
+                className="my-2"
             />
-            <p className="mb-2" id="rangeValue">
-                {value}
-            </p>
+            <p id="rangeValue">{value}</p>
         </div>
     );
 };
