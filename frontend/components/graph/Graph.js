@@ -18,6 +18,7 @@ import {
     initCoordsAtom,
     initRotationAtom,
     graphDataAtom,
+    visibleNodesAtom,
 } from "../../utils/atoms";
 
 /**
@@ -36,7 +37,7 @@ const GraphComponent = ({ graphRef }) => {
     const [selectedLink, setSelectedLink] = useState();
 
     const [hoverNode, setHoverNode] = useState();
-    const [visibleNodes, setVisibleNodes] = useState([]);
+    const [visibleNodes, setVisibleNodes] = useAtom(visibleNodesAtom);
 
     const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
     const [threshold, setThreshold] = useState(8);

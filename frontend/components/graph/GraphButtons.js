@@ -1,8 +1,9 @@
 import { saveAs } from "file-saver";
 import React, { useState } from "react";
-import { initCoordsAtom, initRotationAtom } from "../../utils/atoms";
+import {graphDataAtom, initCoordsAtom, initRotationAtom, visibleNodesAtom} from "../../utils/atoms";
 import { reset, resetView } from "../../utils/visualizer/nodeFunctions";
 import { useAtom } from "jotai";
+
 
 /**
  * A styled graph button with a function to interface with the graph.
@@ -34,6 +35,8 @@ const GraphButtonMenu = ({ graphRef }) => {
     const [numScreenshots, setNumScreenshots] = useState(0);
     const [initCoords] = useAtom(initCoordsAtom);
     const [initRotation] = useAtom(initRotationAtom);
+    const [graphData, setGraphData] = useAtom(graphDataAtom);
+    const [visibleNodes, setVisibleNodes] = useAtom(visibleNodesAtom);
 
     /** @TODO idk what the track is or how to toggle it */
     function toggleTrack() {
@@ -44,14 +47,25 @@ const GraphButtonMenu = ({ graphRef }) => {
         }
     }
 
-    function exportGraph(graphData) {
+    function exportGraph() {
         exportToJsonFile(graphData);
     }
 
-    /** @TODO not yet implemented */
+    function replacer(key,value) {
+
+        if (key==="__threeObj") return undefined;
+        else if (key==="__lineObj") return undefined;
+        else if (key==="__arrowObj") return undefined;
+        else if (key==="__curve") return undefined;
+        else if (key==="index") return undefined;
+        else if (key==="source") return value.id;
+        else if (key==="target") return value.id;
+        else return value;
+    }
+
     function exportToJsonFile(jsonData) {
         let dataStr = JSON.stringify(
-            Object.assign({}, jsonData, Graph.cameraPosition()),
+            Object.assign({}, jsonData, graphRef.current.cameraPosition()),
             replacer
         );
 
@@ -67,8 +81,10 @@ const GraphButtonMenu = ({ graphRef }) => {
         linkElement.setAttribute("download", exportFileDefaultName);
         linkElement.click();
     }
+    function delay(time) {
+        return new Promise(resolve => setTimeout(resolve, time));
+    }
 
-    /** @TODO not yet implemented */
     function importGraph() {
         let input = document.createElement("input");
         input.type = "file";
@@ -84,18 +100,15 @@ const GraphButtonMenu = ({ graphRef }) => {
             reader.onload = (readerEvent) => {
                 let content = readerEvent.target.result; // this is the content!
                 let parsedData = JSON.parse(content);
-                Graph.graphData(parsedData);
+                setGraphData(parsedData);
+                setVisibleNodes(parsedData.nodes);
+                graphRef.current.cameraPosition(
+                    { x: parsedData.x, y: parsedData.y, z: parsedData.z }, // new position
+                    { x: 0, y: 0, z: 0 }, //parsedData.lookAt, // lookAt ({ x, y, z })
+                    0 // ms transition duration
+                );
                 delay(150).then(() => {
-                    let { nodes, links } = Graph.graphData();
-                    allLinks = links;
-                    visibleNodes = nodes;
-                    reset();
-
-                    Graph.cameraPosition(
-                        { x: parsedData.x, y: parsedData.y, z: parsedData.z }, // new position
-                        { x: 0, y: 0, z: 0 }, //parsedData.lookAt, // lookAt ({ x, y, z })
-                        0 // ms transition duration
-                    );
+                    reset(graphRef.current);
                 });
             };
         };
