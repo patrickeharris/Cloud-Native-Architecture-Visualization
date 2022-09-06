@@ -1,7 +1,7 @@
 import * as THREE from "three";
 import * as NodeFns from "../../utils/visualizer/nodeFunctions";
 import { CustomSinCurve } from "../../utils/visualizer/ThreeExtensions";
- import {rightClick} from "../../utils/visualizer/rightClickFunctions.js";
+import { rightClick } from "../../utils/visualizer/rightClickFunctions.js";
 import React, {
     useEffect,
     useState,
@@ -15,7 +15,8 @@ import {
     initCoordsAtom,
     initRotationAtom,
     graphDataAtom,
-    visibleNodesAtom, couplingThresholdAtom,
+    couplingThresholdAtom,
+    graphSearchAtom,
 } from "../../utils/atoms";
 
 /**
@@ -33,8 +34,6 @@ const GraphComponent = ({ graphRef }) => {
     const [selectedLink, setSelectedLink] = useState();
 
     const [hoverNode, setHoverNode] = useState();
-    const [visibleNodes, setVisibleNodes] = useAtom(visibleNodesAtom);
-
     const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
     const [threshold, setThreshold] = useAtom(couplingThresholdAtom);
 
@@ -42,6 +41,9 @@ const GraphComponent = ({ graphRef }) => {
 
     const [initCoords, setInitCoords] = useAtom(initCoordsAtom);
     const [initRotation, setInitRotation] = useAtom(initRotationAtom);
+    const [search] = useAtom(graphSearchAtom);
+
+    const nodes = graphData.nodes.map((node) => node.id);
 
     /**
      * https://reactjs.org/docs/hooks-effect.html
@@ -56,7 +58,6 @@ const GraphComponent = ({ graphRef }) => {
             width: window.innerWidth,
             height: window.innerHeight,
         });
-        setVisibleNodes(graphData.nodes);
 
         let { x, y, z } = graphRef.current.cameraPosition();
 
@@ -114,6 +115,17 @@ const GraphComponent = ({ graphRef }) => {
 
         setHighlightNodes(highlightNodes);
         setHighlightLinks(highlightLinks);
+    };
+
+    const getNodeOpacity = (node) => {
+        if (search === "") {
+            return 0.75;
+        }
+        if (node.id.toLowerCase().includes(search.toLowerCase())) {
+            return 0.8;
+        } else {
+            return 0.1;
+        }
     };
 
     // Event when node is clicked on
@@ -209,13 +221,15 @@ const GraphComponent = ({ graphRef }) => {
                     ][NodeFns.getShape(node.nodeType)],
                     new THREE.MeshLambertMaterial({
                         // Setup colors
-                        color: highlightNodes.has(node)
-                            ? node === hoverNode
-                                ? "rgb(50,50,200)"
-                                : "rgba(0,200,200)"
-                            : NodeFns.getColor(node, graphData, threshold),
+                        color: NodeFns.getColor(
+                            node,
+                            graphData,
+                            threshold,
+                            highlightNodes,
+                            hoverNode
+                        ),
                         transparent: true,
-                        opacity: 0.75,
+                        opacity: getNodeOpacity(node),
                     })
                 )
             }
@@ -232,13 +246,6 @@ const GraphComponent = ({ graphRef }) => {
             }
             // Width of data transfer points
             linkDirectionalParticleWidth={4}
-            // Setup visibility for filtering of nodes
-            nodeVisibility={(node) =>
-                NodeFns.customNodeVisibility(node, visibleNodes)
-            }
-            linkVisibility={(link) =>
-                NodeFns.customLinkVisibility(link, visibleNodes)
-            }
             linkDirectionalArrowLength={3.5}
             linkDirectionalArrowRelPos={1}
             // Change where node is when clicking and dragging

@@ -16,6 +16,5 @@ const AtomNotInitialized = new Error("This atom has not been initialized");
 export const initCoordsAtom = atom({ x: null, y: null, z: null });
 export const initRotationAtom = atom(AtomNotInitialized);
 export const graphDataAtom = atom(data);
-export const visibleNodesAtom = atom(data.nodes);
 export const graphSearchAtom = atom("");
 export const couplingThresholdAtom = atom(8);
