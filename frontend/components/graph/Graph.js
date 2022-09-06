@@ -18,7 +18,7 @@ import {
     initCoordsAtom,
     initRotationAtom,
     graphDataAtom,
-    visibleNodesAtom,
+    visibleNodesAtom, couplingThresholdAtom,
 } from "../../utils/atoms";
 
 /**
@@ -40,7 +40,7 @@ const GraphComponent = ({ graphRef }) => {
     const [visibleNodes, setVisibleNodes] = useAtom(visibleNodesAtom);
 
     const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
-    const [threshold, setThreshold] = useState(8);
+    const [threshold, setThreshold] = useAtom(couplingThresholdAtom);
 
     const [graphData, setGraphData] = useAtom(graphDataAtom);
 

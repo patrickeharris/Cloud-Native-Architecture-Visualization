@@ -1,7 +1,9 @@
 import React, { useState } from "react";
+import {useAtom} from "jotai";
+import {couplingThresholdAtom} from "../../utils/atoms";
 
 const Slider = () => {
-    const [value, setValue] = useState(8);
+    const [value, setValue] = useAtom(couplingThresholdAtom);
 
     const handleInput = (e) => {
         setValue(e.target.value);

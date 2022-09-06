@@ -18,3 +18,4 @@ export const initRotationAtom = atom(AtomNotInitialized);
 export const graphDataAtom = atom(data);
 export const visibleNodesAtom = atom(data.nodes);
 export const graphSearchAtom = atom("");
+export const couplingThresholdAtom = atom(8);
