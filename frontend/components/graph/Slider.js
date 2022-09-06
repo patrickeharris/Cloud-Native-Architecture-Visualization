@@ -8,7 +8,7 @@ const Slider = () => {
     };
     return (
         <div className="w-full h-fit p-0 my-4 bg-transparent accent-gray-50 border-none active:accent-cyan-300">
-            <label for="slider" className="h-fit">
+            <label htmlFor="slider" className="h-fit">
                 Threshold
             </label>
             <br />

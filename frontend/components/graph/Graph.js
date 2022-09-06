@@ -1,6 +1,5 @@
 import * as THREE from "three";
 import * as NodeFns from "../../utils/visualizer/nodeFunctions";
-import data from "../../public/data/pipeline.json";
 import { CustomSinCurve } from "../../utils/visualizer/ThreeExtensions";
 // import {
 //     rightClick,
@@ -15,9 +14,16 @@ import React, {
 } from "react";
 import ForceGraph3D, { ForceGraphMethods } from "react-force-graph-3d";
 import { useAtom } from "jotai";
-import { initCoordsAtom, initRotationAtom } from "../../utils/atoms";
+import {
+    initCoordsAtom,
+    initRotationAtom,
+    graphDataAtom,
+} from "../../utils/atoms";
 
 /**
+ * @TODO add left click/right click functionality
+ * @TODO link search to graph
+ * @TODO link threshold slider to graph
  * @param {Object} props The props passed to this object
  * @param {React.MutableRefObject<ForceGraphMethods>} props.graphRef Reference to the internal force graph to access methods/camera
  * @returns {JSX.Element} The graph
@@ -35,7 +41,7 @@ const GraphComponent = ({ graphRef }) => {
     const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
     const [threshold, setThreshold] = useState(8);
 
-    const [graphData, setGraphData] = useState(data);
+    const [graphData, setGraphData] = useAtom(graphDataAtom);
 
     const [initCoords, setInitCoords] = useAtom(initCoordsAtom);
     const [initRotation, setInitRotation] = useAtom(initRotationAtom);
@@ -56,6 +62,7 @@ const GraphComponent = ({ graphRef }) => {
         setVisibleNodes(graphData.nodes);
 
         let { x, y, z } = graphRef.current.cameraPosition();
+
         setInitCoords({ x, y, z });
         setInitRotation(graphRef.current.camera().quaternion);
     }, []);
