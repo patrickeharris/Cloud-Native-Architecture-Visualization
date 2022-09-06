@@ -5,7 +5,7 @@ import {
     initCoordsAtom,
     initRotationAtom,
 } from "../../utils/atoms";
-import { reset, resetView } from "../../utils/visualizer/nodeFunctions";
+import { reset } from "../../utils/visualizer/nodeFunctions";
 import { useAtom } from "jotai";
 
 /**
@@ -108,7 +108,7 @@ const GraphButtonMenu = ({ graphRef }) => {
                     0 // ms transition duration
                 );
                 delay(150).then(() => {
-                    reset(graphRef.current);
+                    reset(graphRef);
                 });
             };
         };

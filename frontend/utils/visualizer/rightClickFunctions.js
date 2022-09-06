@@ -1,4 +1,4 @@
-import {Menu} from "./Menu";
+import Menu from "../../components/graph/Menu";
 
 export function rightClick() {
     return (

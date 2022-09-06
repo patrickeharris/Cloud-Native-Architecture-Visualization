@@ -53,48 +53,6 @@ export function getColor(
     return "rgb(0,255,0)";
 }
 
-// set node color based on if it is selected, hovered over, or a neighbor
-export function get2DNodeColor(
-    node,
-    neighbors,
-    selectedNode,
-    hoverNode,
-    threshold
-) {
-    if (Array.isArray(neighbors) && neighbors.indexOf(node) > -1) {
-        if (node === selectedNode || node === hoverNode) {
-            return "blue";
-        }
-        if (neighbors.indexOf(hoverNode) > -1) {
-            return "deepskyblue";
-        }
-        if (neighbors.length > threshold) {
-            return "red";
-        }
-        if (neighbors.length > threshold / 2) {
-            return "orange";
-        }
-        return "green";
-    }
-}
-
-// set link color based on if it selected or hovered over
-export function get2DLinkColor(link, hoverNode, hoverLink, theme) {
-    if (link.source === hoverNode) {
-        return "green";
-    }
-    if (link.target === hoverNode) {
-        return "magenta";
-    }
-    if (link === hoverLink) {
-        return "hotpink";
-    }
-    if (theme === 1) {
-        return "rgba(255,255,255,1)";
-    }
-    return "rgba(50, 50, 50, 0.2)";
-}
-
 // find neighbors of node
 export function getNeighbors(node, links) {
     return links.reduce(
@@ -112,7 +70,7 @@ export function getNeighbors(node, links) {
 
 // Refresh visible nodes
 export function reset(graphRef) {
-    graphRef.refresh();
+    graphRef.current.refresh();
 }
 
 // Set camera back to default view
@@ -122,4 +80,5 @@ export function resetView(graphRef, initCoords) {
         { x: 0, y: 0, z: 0 }, // lookAt ({ x, y, z })
         2000 // ms transition duration
     );
+    reset(graphRef);
 }

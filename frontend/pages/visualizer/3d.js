@@ -3,6 +3,7 @@ import Graph from "../../components/graph/GraphWrapper";
 import Script from "next/script";
 import Head from "next/head";
 import GraphMenu from "../../components/graph/GraphMenu";
+import { Menu } from "../../components/graph/Menu";
 
 /**
  * This page renders the 3d force graph.
@@ -26,6 +27,7 @@ const ThreeD = () => {
             <div className="flex flex-row justify-center items-center w-full h-screen relative z-10">
                 <GraphMenu graphRef={graphRef} />
                 <Graph graphRef={graphRef} />
+                <Menu />
             </div>
         </>
     );
