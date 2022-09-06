@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 @layer components {
-    .gradient {
-        @apply hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-br hover:from-cyan-400 hover:to-green-300;
+    .blue-green-gradient-text {
+        @apply text-transparent bg-clip-text bg-gradient-to-br from-cyan-400 to-green-300;
     }
 }
