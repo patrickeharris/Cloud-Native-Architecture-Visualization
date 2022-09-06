@@ -1,10 +1,7 @@
 import * as THREE from "three";
 import * as NodeFns from "../../utils/visualizer/nodeFunctions";
 import { CustomSinCurve } from "../../utils/visualizer/ThreeExtensions";
-// import {
-//     rightClick,
-//     rightClickLink,
-// } from "../../utils/visualizer/rightClickFunctions.js";
+ import {rightClick} from "../../utils/visualizer/rightClickFunctions.js";
 import React, {
     useEffect,
     useState,
@@ -24,7 +21,6 @@ import {
 /**
  * @TODO add left click/right click functionality
  * @TODO link search to graph
- * @TODO link threshold slider to graph
  * @param {Object} props The props passed to this object
  * @param {React.MutableRefObject<ForceGraphMethods>} props.graphRef Reference to the internal force graph to access methods/camera
  * @returns {JSX.Element} The graph
@@ -73,7 +69,7 @@ const GraphComponent = ({ graphRef }) => {
         let { nodes, links } = graphData;
 
         // If problems, might be this line
-        highlightNodes = new Set(NodeFns.getNeighbors(node, links));
+        setHighlightNodes(new Set(NodeFns.getNeighbors(node, links)));
 
         links.forEach((link) => {
             if (
@@ -257,7 +253,7 @@ const GraphComponent = ({ graphRef }) => {
             onNodeRightClick={(node, e) => {
                 // Set selected node
                 setSelectedNode(node);
-                //rightClick(e);
+                rightClick(e);
             }}
             // Setup hovering on nodes
             onNodeHover={handleNodeHover}
@@ -265,11 +261,6 @@ const GraphComponent = ({ graphRef }) => {
             onLinkHover={handleLinkHover}
             // Setup clicking on links
             onLinkClick={(link) => {
-                setSelectedLink(link);
-            }}
-            // Setup right clicking on links
-            onLinkRightClick={(link, e) => {
-                //rightClickLink(e);
                 setSelectedLink(link);
             }}
             width={dimensions.width}
