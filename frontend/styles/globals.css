@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+    .gradient {
+        @apply hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-br hover:from-cyan-400 hover:to-green-300;
+    }
+}
