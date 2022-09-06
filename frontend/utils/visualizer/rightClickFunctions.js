@@ -1,25 +1,9 @@
-const contextMenu = document.querySelector(".wrapper");
+import {Menu} from "./Menu";
 
-// set right click menu's location on screen and show it
-export const rightClick = (e) => {
-    e.preventDefault();
-    let x = e.offsetX,
-        y = e.offsetY,
-        winWidth = window.innerWidth,
-        winHeight = window.innerHeight,
-        cmWidth = contextMenu.offsetWidth,
-        cmHeight = contextMenu.offsetHeight;
-
-    x = x > winWidth - cmWidth ? winWidth - cmWidth - 5 : x;
-    y = y > winHeight - cmHeight ? winHeight - cmHeight - 5 : y;
-
-    contextMenu.style.left = `${x}px`;
-    contextMenu.style.top = `${y}px`;
-    contextMenu.style.visibility = "visible";
+export function rightClick() {
+    return (
+        <div>
+            <Menu />
+        </div>
+    );
 }
-
-// Hide right click menu when clicking out of it
-document.addEventListener("click", () => {
-    contextMenu.style.visibility = "hidden";
-    resetHoveredNode();
-});

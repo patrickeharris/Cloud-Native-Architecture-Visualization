@@ -253,7 +253,7 @@ const GraphComponent = ({ graphRef }) => {
             onNodeRightClick={(node, e) => {
                 // Set selected node
                 setSelectedNode(node);
-                rightClick(e);
+                rightClick();
             }}
             // Setup hovering on nodes
             onNodeHover={handleNodeHover}
