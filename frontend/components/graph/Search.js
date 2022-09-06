@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { ReactSearchAutocomplete } from "react-search-autocomplete";
 
 const Search = () => {
     const [search, setSearch] = useState();

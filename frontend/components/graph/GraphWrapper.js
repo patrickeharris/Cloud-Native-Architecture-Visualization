@@ -7,6 +7,7 @@ import dynamic from "next/dynamic";
  */
 const Graph = dynamic(() => import("./Graph"), {
     ssr: false,
+    loading: () => <></>,
 });
 
 export default Graph;

@@ -14,20 +14,31 @@ import React, {
     useMemo,
 } from "react";
 import ForceGraph3D, { ForceGraphMethods } from "react-force-graph-3d";
+import { useAtom } from "jotai";
+import { initCoordsAtom, initRotationAtom } from "../../utils/atoms";
 
-const GraphComponent = () => {
+/**
+ * @param {Object} props The props passed to this object
+ * @param {React.MutableRefObject<ForceGraphMethods>} props.graphRef Reference to the internal force graph to access methods/camera
+ * @returns {JSX.Element} The graph
+ */
+const GraphComponent = ({ graphRef }) => {
     const [highlightNodes, setHighlightNodes] = useState(new Set());
     const [highlightLinks, setHighlightLinks] = useState(new Set());
+
     const [selectedNode, setSelectedNode] = useState();
     const [selectedLink, setSelectedLink] = useState();
+
     const [hoverNode, setHoverNode] = useState();
     const [visibleNodes, setVisibleNodes] = useState([]);
+
     const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
     const [threshold, setThreshold] = useState(8);
+
     const [graphData, setGraphData] = useState(data);
 
-    /** @type {ForceGraphMethods} */
-    const graphRef = useRef();
+    const [initCoords, setInitCoords] = useAtom(initCoordsAtom);
+    const [initRotation, setInitRotation] = useAtom(initRotationAtom);
 
     /**
      * https://reactjs.org/docs/hooks-effect.html
@@ -43,7 +54,11 @@ const GraphComponent = () => {
             height: window.innerHeight,
         });
         setVisibleNodes(graphData.nodes);
-    }, [window]);
+
+        let { x, y, z } = graphRef.current.cameraPosition();
+        setInitCoords({ x, y, z });
+        setInitRotation(graphRef.current.camera().quaternion);
+    }, []);
 
     // Highlight neighbors
     function getHighlightNeighbors(node) {
@@ -103,7 +118,6 @@ const GraphComponent = () => {
             const distance = 100;
             const distRatio = 1 + distance / Math.hypot(node.x, node.y, node.z);
             if (graphRef.current) {
-                console.log(graphRef.current);
                 graphRef.current.cameraPosition(
                     {
                         x: node.x * distRatio,
