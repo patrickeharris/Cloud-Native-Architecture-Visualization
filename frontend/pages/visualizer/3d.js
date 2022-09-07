@@ -4,6 +4,7 @@ import Script from "next/script";
 import Head from "next/head";
 import GraphMenu from "../../components/graph/GraphMenu";
 import { Menu } from "../../components/graph/Menu";
+import { InfoBox} from "../../components/graph/InfoBox";
 
 /**
  * This page renders the 3d force graph.
@@ -28,6 +29,7 @@ const ThreeD = () => {
                 <GraphMenu graphRef={graphRef} />
                 <Graph graphRef={graphRef} />
                 <Menu />
+                <InfoBox />
             </div>
         </>
     );
