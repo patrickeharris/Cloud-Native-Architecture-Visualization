@@ -2,13 +2,7 @@ import * as THREE from "three";
 import * as NodeFns from "../../utils/visualizer/nodeFunctions";
 import { CustomSinCurve } from "../../utils/visualizer/ThreeExtensions";
 import { rightClick } from "../../utils/visualizer/rightClickFunctions.js";
-import React, {
-    useEffect,
-    useState,
-    useRef,
-    useCallback,
-    useMemo,
-} from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import ForceGraph3D, { ForceGraphMethods } from "react-force-graph-3d";
 import { useAtom } from "jotai";
 import {
@@ -68,22 +62,17 @@ const GraphComponent = ({ graphRef }) => {
 
     // Highlight neighbors
     function getHighlightNeighbors(node) {
-        let { nodes, links } = graphData;
+        let { links } = graphData;
+        const { nodeLinks, nodes } = NodeFns.getNeighbors(node, links);
+        nodeLinks.forEach((link) => highlightLinks.add(link));
+        nodes.forEach((node) => highlightNodes.add(node));
+    }
 
-        // If problems, might be this line
-        setHighlightNodes(new Set(NodeFns.getNeighbors(node, links)));
-
-        links.forEach((link) => {
-            if (
-                (highlightNodes.has(link.source) && link.target === node) ||
-                (highlightNodes.has(link.target) && link.source === node)
-            ) {
-                highlightLinks.add(link);
-            }
-        });
+    const updateHighlight = () => {
         setHighlightNodes(highlightNodes);
         setHighlightLinks(highlightLinks);
-    }
+        graphRef.current.refresh();
+    };
 
     // Handle behavior on hovering over a node
     const handleNodeHover = (node) => {
@@ -93,29 +82,28 @@ const GraphComponent = ({ graphRef }) => {
 
         highlightNodes.clear();
         highlightLinks.clear();
+
         if (node) {
             highlightNodes.add(node);
             getHighlightNeighbors(node);
         }
 
         setHoverNode(node || null);
-        setHighlightNodes(highlightNodes);
-        setHighlightLinks(highlightLinks);
+        updateHighlight();
     };
 
     // Handle behavior on hovering over a link
     const handleLinkHover = (link) => {
+        if (highlightLinks.has(link)) return;
         highlightNodes.clear();
         highlightLinks.clear();
 
-        if (link) {
+        if (link != null) {
             highlightLinks.add(link);
             highlightNodes.add(link.source);
             highlightNodes.add(link.target);
         }
-
-        setHighlightNodes(highlightNodes);
-        setHighlightLinks(highlightLinks);
+        updateHighlight();
     };
 
     const getNodeOpacity = (node) => {

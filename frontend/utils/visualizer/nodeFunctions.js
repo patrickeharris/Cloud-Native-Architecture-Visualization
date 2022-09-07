@@ -33,7 +33,7 @@ export function getColor(
     hoverNode
 ) {
     let { nodes, links } = graphData;
-    let numNeighbors = getNeighbors(node, links).length;
+    let numNeighbors = getNeighbors(node, links).nodes.length;
 
     if (highlightNodes && highlightNodes.has(node)) {
         if (node === hoverNode) {
@@ -54,18 +54,23 @@ export function getColor(
 }
 
 // find neighbors of node
+/**
+ *
+ * @param {*} node
+ * @param {Array} links
+ * @returns
+ */
 export function getNeighbors(node, links) {
-    return links.reduce(
-        (neighbors, link) => {
-            if (link.target.id === node.id) {
-                neighbors.push(link.source);
-            } else if (link.source.id === node.id) {
-                neighbors.push(link.target);
-            }
-            return neighbors;
-        },
-        [node]
-    );
+    const nodeLinks = links.filter((link) => {
+        return (
+            link.source.nodeID === node.nodeID ||
+            link.target.nodeID === node.nodeID
+        );
+    });
+    const sources = nodeLinks.map((link) => link.source);
+    const targets = nodeLinks.map((link) => link.target);
+    const nodes = sources.concat(targets);
+    return { nodeLinks, nodes };
 }
 
 // Refresh visible nodes
