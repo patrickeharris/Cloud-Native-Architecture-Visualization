@@ -1,7 +1,7 @@
 import { useEffect, useCallback, useState } from "react";
-import {getNeighbors} from "../utils/visualizer/nodeFunctions";
-import {graphDataAtom} from "../utils/atoms";
-import {useAtom} from "jotai";
+import { getNeighbors } from "../utils/visualizer/nodeFunctions";
+import { graphDataAtom } from "../utils/atoms";
+import { useAtom } from "jotai";
 
 export const useInfoBox = () => {
     const [anchorPoint, setAnchorPoint] = useState({ x: 0, y: 0 });
@@ -15,23 +15,30 @@ export const useInfoBox = () => {
 
     const handleClick = useCallback(
         (event) => {
-            setAnchorPoint({x: event.pageX, y: event.pageY});
-            setName(event.detail.node.id)
-            setType(event.detail.node.nodeType)
-            setId(event.detail.node.nodeID)
-            let neighbors = getNeighbors(event.detail.node, graphData.links).nodes
+            setAnchorPoint({ x: event.pageX, y: event.pageY });
+            setName(event.detail.node.id);
+            setType(event.detail.node.nodeType);
+            setId(event.detail.node.nodeID);
+            let neighbors = getNeighbors(
+                event.detail.node,
+                graphData.links
+            ).nodes;
             neighbors.splice(neighbors.indexOf(event.detail.node), 1);
             let dependency = neighbors.map((data) => {
-                if(event.detail.node.dependencies.includes(parseInt(data.nodeID))) {
-                    neighbors.splice(neighbors.indexOf(data), 1)
-                    return <li key={data.id}>{data.id}</li>
+                if (
+                    event.detail.node.dependencies.includes(
+                        parseInt(data.nodeID)
+                    )
+                ) {
+                    neighbors.splice(neighbors.indexOf(data), 1);
+                    return <li key={data.id}>{data.id}</li>;
                 }
             });
             neighbors = neighbors.map((data) => {
-                    return <li key={data.id}>{data.id}</li>
+                return <li key={data.id}>{data.id}</li>;
             });
             setDependencies(dependency);
-            setDepends(neighbors)
+            setDepends(neighbors);
             setShow(true);
         },
         [setShow, setAnchorPoint]
@@ -50,5 +57,14 @@ export const useInfoBox = () => {
             document.removeEventListener("click", handleLClick);
         };
     });
-    return { anchorPoint, name, show, type, id, depends, setShow, dependencies };
+    return {
+        anchorPoint,
+        name,
+        show,
+        type,
+        id,
+        depends,
+        setShow,
+        dependencies,
+    };
 };

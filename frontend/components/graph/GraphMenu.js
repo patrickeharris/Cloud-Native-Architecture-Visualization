@@ -13,7 +13,7 @@ import Slider from "./Slider";
 const GraphMenu = ({ graphRef }) => {
     return (
         <div className="absolute top-2 right-2 z-50 flex flex-col gap-2 text-sm bg-slate-900 bg-opacity-60 rounded-lg p-4 w-44">
-            <Search graphRef={graphRef}/>
+            <Search graphRef={graphRef} />
             <GraphButtonMenu graphRef={graphRef} />
             <Slider />
         </div>

@@ -1,5 +1,3 @@
-import { Color } from "three";
-
 // Sets shape based on type of node
 export function getShape(type) {
     if (type === "service") {
@@ -53,13 +51,7 @@ export function getColor(
     return "rgb(0,255,0)";
 }
 
-// find neighbors of node
-/**
- *
- * @param {*} node
- * @param {Array} links
- * @returns
- */
+// Find neighbors of a given node
 export function getNeighbors(node, links) {
     return {
         nodeLinks: links.filter((link) => {

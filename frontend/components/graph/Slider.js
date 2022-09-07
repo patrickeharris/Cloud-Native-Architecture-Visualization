@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import {useAtom} from "jotai";
-import {couplingThresholdAtom} from "../../utils/atoms";
+import { useAtom } from "jotai";
+import { couplingThresholdAtom } from "../../utils/atoms";
 
 const Slider = () => {
     const [value, setValue] = useAtom(couplingThresholdAtom);
