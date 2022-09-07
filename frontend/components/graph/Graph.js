@@ -265,8 +265,7 @@ const GraphComponent = ({ graphRef }) => {
             width={dimensions.width}
             height={dimensions.height}
             ref={graphRef}
-            backgroundColor={"rgba(0,0,0,0)"}
-        />
+            backgroundColor={"rgba(0,0,0,0)"}></ForceGraph3D>
     );
 
     return Graph;
