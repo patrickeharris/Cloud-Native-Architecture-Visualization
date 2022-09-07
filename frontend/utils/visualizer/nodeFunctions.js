@@ -61,16 +61,25 @@ export function getColor(
  * @returns
  */
 export function getNeighbors(node, links) {
-    const nodeLinks = links.filter((link) => {
-        return (
-            link.source.nodeID === node.nodeID ||
-            link.target.nodeID === node.nodeID
-        );
-    });
-    const sources = nodeLinks.map((link) => link.source);
-    const targets = nodeLinks.map((link) => link.target);
-    const nodes = sources.concat(targets);
-    return { nodeLinks, nodes };
+    return {
+        nodeLinks: links.filter((link) => {
+            return (
+                link.source.nodeID === node.nodeID ||
+                link.target.nodeID === node.nodeID
+            );
+        }),
+        nodes: links.reduce(
+            (neighbors, link) => {
+                if (link.target.id === node.id) {
+                    neighbors.push(link.source);
+                } else if (link.source.id === node.id) {
+                    neighbors.push(link.target);
+                }
+                return neighbors;
+            },
+            [node]
+        ),
+    };
 }
 
 // Refresh visible nodes
