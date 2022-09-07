@@ -12,17 +12,20 @@ const Search = ({ graphRef }) => {
         if (nodes.includes(e.target.value.toLowerCase())) {
             const distance = 100;
             const node = graphData.nodes.find((n) => n.id === e.target.value);
-            const distRatio = 1 + distance / Math.hypot(node.x, node.y, node.z);
-            if (graphRef.current) {
-                graphRef.current.cameraPosition(
-                    {
-                        x: node.x * distRatio,
-                        y: node.y * distRatio,
-                        z: node.z * distRatio,
-                    },
-                    node,
-                    1500
-                );
+            if (node) {
+                const distRatio =
+                    1 + distance / Math.hypot(node.x, node.y, node.z);
+                if (graphRef.current) {
+                    graphRef.current.cameraPosition(
+                        {
+                            x: node.x * distRatio,
+                            y: node.y * distRatio,
+                            z: node.z * distRatio,
+                        },
+                        node,
+                        1500
+                    );
+                }
             }
         }
     };

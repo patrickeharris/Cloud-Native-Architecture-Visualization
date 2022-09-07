@@ -14,6 +14,11 @@ import {
 } from "../../utils/atoms";
 
 /**
+ * @TODO fullscreen bug?
+ * @TODO navbar obscures right side graph
+ * @TODO right click needs to be moved to be embedded with graph like left click
+ * @TODO drag bug
+ * @TODO names over each node
  * @param {Object} props The props passed to this object
  * @param {React.MutableRefObject<ForceGraphMethods>} props.graphRef Reference to the internal force graph to access methods/camera
  * @returns {JSX.Element} The graph
@@ -111,25 +116,28 @@ const GraphComponent = ({ graphRef }) => {
     // Event when node is clicked on
     const handleNodeClick = useCallback(
         (node) => {
-            setSelectedNode(node);
-            const distance = 100;
-            const distRatio = 1 + distance / Math.hypot(node.x, node.y, node.z);
-            if (graphRef.current) {
-                graphRef.current.cameraPosition(
-                    {
-                        x: node.x * distRatio,
-                        y: node.y * distRatio,
-                        z: node.z * distRatio,
-                    },
-                    node,
-                    1500
-                );
-            }
+            if (node != null) {
+                setSelectedNode(node);
+                const distance = 100;
+                const distRatio =
+                    1 + distance / Math.hypot(node.x, node.y, node.z);
+                if (graphRef.current) {
+                    graphRef.current.cameraPosition(
+                        {
+                            x: node.x * distRatio,
+                            y: node.y * distRatio,
+                            z: node.z * distRatio,
+                        },
+                        node,
+                        1500
+                    );
+                }
 
-            const event = new CustomEvent("nodeClick", {
-                detail: { node: node },
-            });
-            document.dispatchEvent(event);
+                const event = new CustomEvent("nodeClick", {
+                    detail: { node: node },
+                });
+                document.dispatchEvent(event);
+            }
         },
         [graphRef]
     );
@@ -184,9 +192,11 @@ const GraphComponent = ({ graphRef }) => {
             linkDirectionalArrowRelPos={1}
             // Change where node is when clicking and dragging
             onNodeDragEnd={(node) => {
-                node.fx = node.x;
-                node.fy = node.y;
-                node.fz = node.z;
+                if (node.x && node.y && node.z) {
+                    node.fx = node.x;
+                    node.fy = node.y;
+                    node.fz = node.z;
+                }
             }}
             // Select node on left click
             onNodeClick={handleNodeClick}
@@ -207,7 +217,8 @@ const GraphComponent = ({ graphRef }) => {
             width={dimensions.width}
             height={dimensions.height}
             ref={graphRef}
-            backgroundColor={"rgba(0,0,0,0)"}></ForceGraph3D>
+            backgroundColor={"rgba(0,0,0,0)"}
+        ></ForceGraph3D>
     );
 
     return Graph;
