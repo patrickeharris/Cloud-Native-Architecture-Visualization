@@ -1,6 +1,6 @@
 import { useContextMenu } from "../../hooks/useContextMenu";
 
-const Menu = () => {
+export const Menu = () => {
     const { anchorPoint, show } = useContextMenu();
 
     if (show) {

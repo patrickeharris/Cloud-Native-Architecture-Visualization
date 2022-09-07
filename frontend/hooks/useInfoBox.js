@@ -19,7 +19,7 @@ export const useInfoBox = () => {
             setName(event.detail.node.id)
             setType(event.detail.node.nodeType)
             setId(event.detail.node.nodeID)
-            let neighbors = getNeighbors(event.detail.node, graphData.links)
+            let neighbors = getNeighbors(event.detail.node, graphData.links).nodes
             neighbors.splice(neighbors.indexOf(event.detail.node), 1);
             let dependency = neighbors.map((data) => {
                 if(event.detail.node.dependencies.includes(parseInt(data.nodeID))) {

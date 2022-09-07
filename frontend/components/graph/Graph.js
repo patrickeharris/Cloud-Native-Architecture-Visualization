@@ -11,7 +11,6 @@ import {
     graphDataAtom,
     couplingThresholdAtom,
     graphSearchAtom,
-    selectedNodeAtom,
 } from "../../utils/atoms";
 
 /**
@@ -120,7 +119,7 @@ const GraphComponent = ({ graphRef }) => {
     // Event when node is clicked on
     const handleNodeClick = useCallback(
         (node) => {
-            setSelectedNode(node);
+            setSelectedNode(node)
             const distance = 100;
             const distRatio = 1 + distance / Math.hypot(node.x, node.y, node.z);
             if (graphRef.current) {
@@ -134,6 +133,7 @@ const GraphComponent = ({ graphRef }) => {
                     1500
                 );
             }
+
             const event = new CustomEvent('nodeClick', { detail: {node: node} });
             document.dispatchEvent(event);
 
