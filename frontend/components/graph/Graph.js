@@ -14,8 +14,6 @@ import {
 } from "../../utils/atoms";
 
 /**
- * @TODO add left click/right click functionality
- * @TODO link search to graph
  * @param {Object} props The props passed to this object
  * @param {React.MutableRefObject<ForceGraphMethods>} props.graphRef Reference to the internal force graph to access methods/camera
  * @returns {JSX.Element} The graph
@@ -119,7 +117,7 @@ const GraphComponent = ({ graphRef }) => {
     // Event when node is clicked on
     const handleNodeClick = useCallback(
         (node) => {
-            setSelectedNode(node)
+            setSelectedNode(node);
             const distance = 100;
             const distRatio = 1 + distance / Math.hypot(node.x, node.y, node.z);
             if (graphRef.current) {
@@ -134,60 +132,10 @@ const GraphComponent = ({ graphRef }) => {
                 );
             }
 
-            const event = new CustomEvent('nodeClick', { detail: {node: node} });
+            const event = new CustomEvent("nodeClick", {
+                detail: { node: node },
+            });
             document.dispatchEvent(event);
-
-            /** @TODO dim other nodes */
-
-            // Show info box
-            // const cb = document.querySelector("#menuToggle");
-            // cb.checked = true;
-
-            // Set info box data
-            // document.getElementById("nodeName").innerHTML = node.id;
-            // document.getElementById("nodeType").innerHTML =
-            //     "<b>Node Type: </b>" + node.nodeType;
-            // document.getElementById("nodeID").innerHTML =
-            //     "<b>Node ID: </b>" + node.nodeID;
-
-            // let found = false;
-            // let found2 = false;
-            // let newLinks = [];
-            // let dependLinks = [];
-
-            // // Searching for dependencies to display them
-            // allLinks.forEach((link) => {
-            //     if (link.source === node) {
-            //         found = true;
-            //         newLinks.push(link);
-            //     }
-            //     if (link.target === node) {
-            //         found2 = true;
-            //         dependLinks.push(link);
-            //     }
-            // });
-
-            // // Display dependencies in info box
-            // if (found) {
-            //     newLinks = newLinks.map((data) => {
-            //         data = "<li>" + data.target.id + "</li>";
-            //         return data;
-            //     });
-            //     dependencies.innerHTML = newLinks.join("");
-            // } else {
-            //     dependencies.innerHTML = "<li>N/A</li>";
-            // }
-
-            // // Display depends on in info box
-            // if (found2) {
-            //     dependLinks = dependLinks.map((data) => {
-            //         data = "<li>" + data.source.id + "</li>";
-            //         return data;
-            //     });
-            //     dependson.innerHTML = dependLinks.join("");
-            // } else {
-            //     dependson.innerHTML = "<li>N/A</li>";
-            // }
         },
         [graphRef]
     );
