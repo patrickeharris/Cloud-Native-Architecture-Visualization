@@ -19,6 +19,7 @@ import {
  * @TODO right click needs to be moved to be embedded with graph like left click
  * @TODO drag bug
  * @TODO names over each node
+ * @TODO make arrows more visible
  * @param {Object} props The props passed to this object
  * @param {React.MutableRefObject<ForceGraphMethods>} props.graphRef Reference to the internal force graph to access methods/camera
  * @returns {JSX.Element} The graph

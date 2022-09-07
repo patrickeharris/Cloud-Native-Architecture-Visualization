@@ -8,9 +8,9 @@ import Link from "next/link";
  */
 const NavItem = ({ ...props }) => {
     return (
-        <li className={`my-6 font-semibold text-lg w-full`}>
+        <li className={`my-1 font-semibold text-sm w-full`}>
             <Link href={props.href ? props.href : "/"}>
-                <a className="flex flex-col items-center w-full">
+                <a className="flex flex-col items-left w-full">
                     <span className="text-white hover:blue-green-gradient-text text-center font-hubballi w-fit">
                         {props.children}
                     </span>
