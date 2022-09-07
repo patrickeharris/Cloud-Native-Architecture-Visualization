@@ -37,14 +37,6 @@ const GraphComponent = ({ graphRef }) => {
 
     const nodes = graphData.nodes.map((node) => node.id);
 
-    /**
-     * https://reactjs.org/docs/hooks-effect.html
-     *
-     * React useEffect allows us to perform operations at certain points
-     * in a component's lifecycle or based on variables. The empty [] array
-     * at the end of this means that useEffect is only called once when
-     * the component renders.
-     */
     useEffect(() => {
         setDimensions({
             width: window.innerWidth,
@@ -65,6 +57,7 @@ const GraphComponent = ({ graphRef }) => {
         nodes.forEach((node) => highlightNodes.add(node));
     }
 
+    // Refresh the graph and update states
     const updateHighlight = () => {
         setHighlightNodes(highlightNodes);
         setHighlightLinks(highlightLinks);
@@ -103,6 +96,7 @@ const GraphComponent = ({ graphRef }) => {
         updateHighlight();
     };
 
+    // Set node opacity based on search
     const getNodeOpacity = (node) => {
         if (search === "") {
             return 0.75;
