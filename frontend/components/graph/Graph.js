@@ -1,7 +1,6 @@
 import * as THREE from "three";
 import * as NodeFns from "../../utils/visualizer/nodeFunctions";
 import { CustomSinCurve } from "../../utils/visualizer/ThreeExtensions";
-import { rightClick } from "../../utils/visualizer/rightClickFunctions.js";
 import React, { useEffect, useState, useCallback } from "react";
 import ForceGraph3D, { ForceGraphMethods } from "react-force-graph-3d";
 import { useAtom } from "jotai";
@@ -205,7 +204,6 @@ const GraphComponent = ({ graphRef }) => {
             onNodeRightClick={(node, e) => {
                 // Set selected node
                 setSelectedNode(node);
-                rightClick();
             }}
             // Setup hovering on nodes
             onNodeHover={handleNodeHover}
