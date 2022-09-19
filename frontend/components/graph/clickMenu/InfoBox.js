@@ -1,4 +1,4 @@
-import { useInfoBox } from "../../hooks/useInfoBox";
+import { useInfoBox } from "../../../hooks/useInfoBox";
 
 export const InfoBox = () => {
     const {

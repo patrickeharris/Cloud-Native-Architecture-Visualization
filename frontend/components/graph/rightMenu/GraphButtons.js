@@ -4,8 +4,8 @@ import {
     graphDataAtom,
     initCoordsAtom,
     initRotationAtom,
-} from "../../utils/atoms";
-import { reset } from "../../utils/visualizer/nodeFunctions";
+} from "../../../utils/atoms";
+import { reset } from "../../../utils/visualizer/nodeFunctions";
 import { useAtom } from "jotai";
 
 /**

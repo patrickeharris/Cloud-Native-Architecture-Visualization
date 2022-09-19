@@ -23,7 +23,7 @@ import {
  * @param {React.MutableRefObject<ForceGraphMethods>} props.graphRef Reference to the internal force graph to access methods/camera
  * @returns {JSX.Element} The graph
  */
-const GraphComponent = ({ graphRef }) => {
+const GraphComponent = ({ graphRef, graphColorFn }) => {
     const [highlightNodes, setHighlightNodes] = useState(new Set());
     const [highlightLinks, setHighlightLinks] = useState(new Set());
 
@@ -163,7 +163,7 @@ const GraphComponent = ({ graphRef }) => {
                     ][NodeFns.getShape(node.nodeType)],
                     new THREE.MeshLambertMaterial({
                         // Setup colors
-                        color: NodeFns.getColor(
+                        color: graphColorFn(
                             node,
                             graphData,
                             threshold,

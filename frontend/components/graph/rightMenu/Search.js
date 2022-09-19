@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { graphDataAtom, graphSearchAtom } from "../../utils/atoms";
+import { graphDataAtom, graphSearchAtom } from "../../../utils/atoms";
 import { useAtom } from "jotai";
 
 const Search = ({ graphRef }) => {

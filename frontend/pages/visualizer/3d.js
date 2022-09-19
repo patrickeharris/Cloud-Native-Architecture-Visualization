@@ -1,10 +1,9 @@
 import React, { useRef, useState } from "react";
 import Graph from "../../components/graph/GraphWrapper";
-import Script from "next/script";
-import Head from "next/head";
-import GraphMenu from "../../components/graph/GraphMenu";
-import { Menu } from "../../components/graph/Menu";
-import { InfoBox} from "../../components/graph/InfoBox";
+import GraphMenu from "../../components/graph/rightMenu/GraphMenu";
+import { Menu } from "../../components/graph/clickMenu/Menu";
+import { InfoBox } from "../../components/graph/clickMenu/InfoBox";
+import { getColor } from "../../utils/visualizer/nodeFunctions";
 
 /**
  * This page renders the 3d force graph.
@@ -22,12 +21,9 @@ const ThreeD = () => {
 
     return (
         <>
-            <Head>
-                {/* <Script src="../../utils/visualizer/drag.js"></Script> */}
-            </Head>
             <div className="flex flex-row justify-center items-center w-full h-screen relative z-10">
                 <GraphMenu graphRef={graphRef} />
-                <Graph graphRef={graphRef} />
+                <Graph graphRef={graphRef} graphColorFn={getColor} />
                 <Menu />
                 <InfoBox />
             </div>

@@ -6,9 +6,12 @@ const tabs = [
     {
         section: "Anti-patterns",
         tabs: [
-            { name: "Cyclical Dependencies", href: "/antipatterns" },
-            { name: "Knot", href: "/antipatterns" },
-            { name: "Bottleneck", href: "/antipatterns" },
+            {
+                name: "Cyclical Dependencies",
+                href: "/antipatterns/cyclic-dependencies",
+            },
+            { name: "Knot", href: "/antipatterns/knot" },
+            { name: "Bottleneck", href: "/antipatterns/bottleneck" },
         ],
     },
 ];
@@ -29,7 +32,9 @@ const Navbar = ({ ...props }) => {
             } ${props.className}`}
         >
             <nav
-                className={`relative isolate bg-opacity-50 sm:w-64 h-full bg-slate-900`}
+                className={`relative isolate sm:w-64 h-full bg-slate-900 ease-in-out duration-200 ${
+                    navOpen ? `bg-opacity-100` : `bg-opacity-10`
+                }`}
             >
                 <div className="absolute top-4 right-4 overflow-x-clip z-50">
                     <button
