@@ -55,12 +55,12 @@ const GraphComponent = ({ graphRef, graphColorFn }) => {
     }, []);
 
     // Highlight neighbors
-    function getHighlightNeighbors(node) {
+    const getHighlightNeighbors = (node) => {
         let { links } = graphData;
         const { nodeLinks, nodes } = NodeFns.getNeighbors(node, links);
         nodeLinks.forEach((link) => highlightLinks.add(link));
         nodes.forEach((node) => highlightNodes.add(node));
-    }
+    };
 
     // Refresh the graph and update states
     const updateHighlight = () => {
