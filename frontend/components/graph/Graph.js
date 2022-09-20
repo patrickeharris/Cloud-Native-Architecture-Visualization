@@ -70,10 +70,10 @@ const GraphComponent = ({ graphRef, graphColorFn }) => {
     };
 
     // Handle behavior on hovering over a node
-    const handleNodeHover = (node) => {
+    const handleNodeHover = (node, prevNode) => {
         // No state change
-        if ((!node && !highlightNodes.size) || (node && hoverNode === node))
-            return;
+        // if ((!node && !highlightNodes.size) || (node && hoverNode === node))
+        //     return;
 
         highlightNodes.clear();
         highlightLinks.clear();
@@ -206,6 +206,7 @@ const GraphComponent = ({ graphRef, graphColorFn }) => {
                 setSelectedNode(node);
             }}
             // Setup hovering on nodes
+            // This is causing some error
             onNodeHover={handleNodeHover}
             // Setup hovering on links
             onLinkHover={handleLinkHover}
@@ -217,6 +218,7 @@ const GraphComponent = ({ graphRef, graphColorFn }) => {
             height={dimensions.height}
             ref={graphRef}
             backgroundColor={"rgba(0,0,0,0)"}
+            enableNodeDrag={false}
         ></ForceGraph3D>
     );
 

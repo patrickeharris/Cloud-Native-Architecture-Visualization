@@ -1,0 +1,137 @@
+export class Graph {
+    constructor() {
+        this.list = {};
+    }
+    insert(newVertex, neighborVertex) {
+        if (!this.list[newVertex]) {
+            if (neighborVertex) {
+                this.list[newVertex] = [neighborVertex];
+            } else {
+                this.list[newVertex] = [];
+            }
+        } else {
+            // If neighborVertex is not initialized
+            if (!this.list[neighborVertex]) {
+                this.list[neighborVertex] = [];
+            }
+
+            // Add neighborVertex to
+            this.list[newVertex].push(neighborVertex);
+        }
+    }
+    addEdge(vertexFrom, vertexTo) {
+        if (this.list[vertexFrom] || this.list[vertexTo]) {
+            throw new Error("Vertex does not exsists");
+        }
+
+        this.list[vertexFrom].push(vertexTo);
+    }
+    /*
+     * DFS
+     *
+     * @param graph {object}: Takes different graph as optional
+     * @param vertex {string|integer}
+     * @param cb {function}
+     */
+    dfs(graph, vertex, cb, visited) {
+        // track which node visited
+        var visited = visited || {};
+
+        // Take graph as option
+        var list = graph ? graph : this.list;
+
+        if (visited[vertex]) return;
+
+        // Mark vertex as visited
+        visited[vertex] = true;
+
+        var stack = [vertex];
+
+        while (stack.length > 0) {
+            // Get a node from stack
+            var nextNode = stack.pop();
+
+            // Invoke given function
+            cb(nextNode);
+
+            // Iterate adjacent nodes
+            if (list[nextNode]) {
+                // console.log('stack', stack)
+                for (var neighbor of list[nextNode]) {
+                    // If the vertex is not visited, push each nodes to stack
+                    if (!visited[neighbor]) {
+                        stack.push(neighbor);
+                        visited[neighbor] = true;
+                    }
+                }
+            }
+        }
+    }
+    getStrongComponent(vertex) {
+        if (vertex && !this.list[vertex]) {
+            console.log(vertex);
+            throw new Error("Vertex DNE");
+        }
+
+        vertex = vertex
+            ? vertex.toString()
+            : Object.keys(this.list)[0].toString();
+
+        /*
+        Create Copy of current Adjacency list
+        */
+        var reverseEdgeGraph = getReverseGraph(this.list);
+        var stack = [];
+        var visited = {};
+
+        for (var vertex in this.list) {
+            this.dfs(
+                null,
+                vertex,
+                function (v) {
+                    stack.push(v);
+                },
+                visited
+            );
+        }
+
+        /**
+         *
+         * Create SCC
+         *
+         **/
+        var allSCC = [];
+        visited = {};
+        stack.reverse().forEach((vertex) => {
+            var SCC = [];
+            this.dfs(
+                reverseEdgeGraph,
+                vertex,
+                function (v) {
+                    SCC.push(v);
+                },
+                visited
+            );
+            if (SCC.length) allSCC.push(SCC);
+        });
+
+        return allSCC;
+    }
+}
+
+function getReverseGraph(graph) {
+    var vertices = Object.keys(graph);
+    var reverseEdgeGraph = {};
+
+    for (let vertex of vertices) {
+        for (let neighbor of graph[vertex]) {
+            if (reverseEdgeGraph[neighbor]) {
+                reverseEdgeGraph[neighbor].push(vertex);
+            } else {
+                reverseEdgeGraph[neighbor] = [vertex];
+            }
+        }
+    }
+
+    return reverseEdgeGraph;
+}

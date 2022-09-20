@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import NavItem from "./NavItem";
 
 const tabs = [
-    { name: "3D Visualizer", href: "/visualizer/3d" },
     {
         section: "Anti-patterns",
         tabs: [
