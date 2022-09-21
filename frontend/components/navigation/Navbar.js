@@ -3,14 +3,57 @@ import NavItem from "./NavItem";
 
 const tabs = [
     {
-        section: "Anti-patterns",
+        section: "Inter-node antipatterns",
         tabs: [
             {
                 name: "Cyclical Dependencies",
+                href: "/inter/cyclic-dependencies",
+            },
+            { name: "Knot", href: "/inter/knot" },
+            { name: "Bottleneck", href: "/inter/bottleneck" },
+            { name: "Sand Pile", href: "/inter/sandpile" },
+            { name: "Service Chain", href: "/inter/service-chain" },
+            {
+                name: "Duplicated Service",
+                href: "/inter/duplicated",
+            },
+            {
+                name: "Shared Persistency",
+                href: "/inter/shared-persistency",
+            },
+            {
+                name: "Scattered Parasitic Functionality",
+                href: "/inter/scattered-parasitic",
+            },
+            {
+                name: "Stovepipe Service",
+                href: "/inter/scattered-parasitic",
+            },
+            {
+                name: "Wrong Cuts",
+                href: "/inter/wrong-cuts",
+            },
+        ],
+    },
+    {
+        section: "Intra-node antipatterns",
+        tabs: [
+            { name: "Chatty Service", href: "/intra/chatty" },
+            { name: "Mega Service", href: "/intra/megaservice" },
+            { name: "Nanoservice", href: "/intra/nanoservice" },
+            {
+                name: "Low Cohesive Operations",
+                href: "/intra/low-cohesion",
+            },
+        ],
+    },
+    {
+        section: "Other antipatterns",
+        tabs: [
+            {
+                name: "...",
                 href: "/antipatterns/cyclic-dependencies",
             },
-            { name: "Knot", href: "/antipatterns/knot" },
-            { name: "Bottleneck", href: "/antipatterns/bottleneck" },
         ],
     },
 ];
@@ -31,7 +74,7 @@ const Navbar = ({ ...props }) => {
             } ${props.className}`}
         >
             <nav
-                className={`relative isolate sm:w-64 h-full bg-slate-900 ease-in-out duration-200 ${
+                className={`relative isolate sm:w-64 h-full bg-slate-900 ease-in-out duration-200 shadow-lg ${
                     navOpen ? `bg-opacity-100` : `bg-opacity-10`
                 }`}
             >

@@ -52,7 +52,7 @@ const GraphComponent = ({ graphRef, graphColorFn }) => {
 
         setInitCoords({ x, y, z });
         setInitRotation(graphRef.current.camera().quaternion);
-    }, []);
+    }, [window.innerWidth, window.innerHeight]);
 
     // Highlight neighbors
     const getHighlightNeighbors = (node) => {
@@ -188,8 +188,8 @@ const GraphComponent = ({ graphRef, graphColorFn }) => {
             }
             // Width of data transfer points
             linkDirectionalParticleWidth={4}
-            linkDirectionalArrowLength={3.5}
-            linkDirectionalArrowRelPos={1}
+            linkDirectionalArrowLength={5}
+            linkDirectionalArrowRelPos={1.05}
             // Change where node is when clicking and dragging
             onNodeDragEnd={(node) => {
                 if (node.x && node.y && node.z) {

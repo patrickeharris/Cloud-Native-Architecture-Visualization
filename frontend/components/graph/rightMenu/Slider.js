@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { useAtom } from "jotai";
-import { couplingThresholdAtom } from "../../../utils/atoms";
+import { couplingThresholdAtom, graphDataAtom } from "../../../utils/atoms";
 
 const Slider = () => {
     const [value, setValue] = useAtom(couplingThresholdAtom);
+    const [graphData] = useAtom(graphDataAtom);
 
     const handleInput = (e) => {
         setValue(e.target.value);
@@ -16,8 +17,8 @@ const Slider = () => {
             <br />
             <input
                 type="range"
-                min="0"
-                max="100"
+                min={0}
+                max={graphData.nodes.length ?? 100}
                 value={value}
                 onInput={(e) => handleInput(e)}
                 id="slider"

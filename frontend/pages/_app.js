@@ -27,13 +27,10 @@ config.autoAddCss = false;
  * @returns
  */
 function MyApp({ Component, pageProps }) {
-    const router = useRouter();
-    const path = router.asPath;
-
     return (
         <>
             <Head>
-                <title>{getHeaderString(router.asPath)}</title>
+                <title>Anti-pattern Visualizer</title>
                 <meta
                     name="description"
                     content="A web app to identify, detect, and educate about antipatterns."
