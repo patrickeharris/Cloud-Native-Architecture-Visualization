@@ -28,27 +28,34 @@ export function getColor(
     graphData,
     threshold,
     highlightNodes,
-    hoverNode
+    hoverNode,
+    opacityFn
 ) {
     let { nodes, links } = graphData;
     let numNeighbors = getNeighbors(node, links).nodes.length;
 
+    if (!opacityFn) {
+        opacityFn = (node) => {
+            return 1;
+        };
+    }
+
     if (highlightNodes && highlightNodes.has(node)) {
         if (node === hoverNode) {
-            return "rgb(50,50,200)";
+            return `rgba(50,50,200,${opacityFn(node)})`;
         } else {
-            return "rgb(0,200,200)";
+            return `rgba(0,200,200,${opacityFn(node)})`;
         }
     }
 
     if (numNeighbors > threshold) {
-        return "rgb(255,0,0)";
+        return `rgba(255,0,0,${opacityFn(node)})`;
     }
     if (numNeighbors > threshold / 2) {
-        return "rgb(255,160,0)";
+        return `rgba(255,160,0, ${opacityFn(node)})`;
     }
 
-    return "rgb(0,255,0)";
+    return `rgba(0,255,0, ${opacityFn(node)})`;
 }
 
 // Find neighbors of a given node

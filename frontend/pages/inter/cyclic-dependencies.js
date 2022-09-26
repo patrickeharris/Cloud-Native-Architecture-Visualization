@@ -32,12 +32,19 @@ const CyclicDependencies = () => {
     };
     useEffect(getSccs, []);
 
-    function getColor(node, graphData, threshold, highlightNodes, hoverNode) {
+    function getColor(
+        node,
+        graphData,
+        threshold,
+        highlightNodes,
+        hoverNode,
+        opacityFn
+    ) {
         if (highlightNodes && highlightNodes.has(node)) {
             if (node === hoverNode) {
-                return "rgb(50,50,200)";
+                return `rgba(50,50,200,${opacityFn(node)})`;
             } else {
-                return "rgb(0,200,200)";
+                return `rgba(0,200,200,${opacityFn(node)})`;
             }
         }
 
@@ -48,15 +55,15 @@ const CyclicDependencies = () => {
         sccs.forEach((scc, index) => {
             if (scc.includes(node.id)) {
                 if (scc.length >= threshold) {
-                    color = "rgb(100,0,0)";
+                    color = `rgba(255,102,102,${opacityFn(node)})`;
                 } else if (scc.length >= threshold / 2) {
-                    color = "rgb(0,0,50)";
+                    color = `rgba(102,102,255,${opacityFn(node)})`;
                 }
             }
             if (color) return;
         });
 
-        return color ?? "rgb(100,100,100)";
+        return color ?? `rgba(100,100,100,${opacityFn(node)})`;
     }
 
     return (

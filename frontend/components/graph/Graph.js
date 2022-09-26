@@ -11,6 +11,7 @@ import {
     couplingThresholdAtom,
     graphSearchAtom,
 } from "../../utils/atoms";
+import SpriteText from "three-spritetext";
 
 /**
  * @TODO fullscreen bug?
@@ -142,62 +143,67 @@ const GraphComponent = ({ graphRef, graphColorFn }) => {
         [graphRef]
     );
 
+    const textNodes = (node) => {
+        const sprite = new SpriteText(node.id);
+        sprite.color = graphColorFn(
+            node,
+            graphData,
+            threshold,
+            highlightNodes,
+            hoverNode,
+            getNodeOpacity
+        );
+        sprite.textHeight = 8;
+        sprite.fontWeight = "bold";
+        sprite.backgroundColor = "rgba(10,10,10,0.2)";
+        sprite.padding = 2;
+        return sprite;
+    };
+
+    const customNode = (node) => {
+        return new THREE.Mesh(
+            [
+                new THREE.SphereGeometry(5),
+                new THREE.BoxGeometry(10, 10, 10),
+                new THREE.ConeGeometry(5, 10),
+                new THREE.CylinderGeometry(5, 5, 10),
+                new THREE.TubeGeometry(new CustomSinCurve(10), 5, 2, 8, false),
+                new THREE.OctahedronGeometry(5),
+            ][NodeFns.getShape(node.nodeType)],
+            new THREE.MeshLambertMaterial({
+                // Setup colors
+                color: graphColorFn(
+                    node,
+                    graphData,
+                    threshold,
+                    highlightNodes,
+                    hoverNode
+                ),
+                transparent: true,
+                opacity: getNodeOpacity(node),
+            })
+        );
+    };
+
     const Graph = (
         <ForceGraph3D
             //  Setup shapes
-            nodeThreeObject={(node) =>
-                new THREE.Mesh(
-                    [
-                        new THREE.SphereGeometry(5),
-                        new THREE.BoxGeometry(10, 10, 10),
-                        new THREE.ConeGeometry(5, 10),
-                        new THREE.CylinderGeometry(5, 5, 10),
-                        new THREE.TubeGeometry(
-                            new CustomSinCurve(10),
-                            5,
-                            2,
-                            8,
-                            false
-                        ),
-                        new THREE.OctahedronGeometry(5),
-                    ][NodeFns.getShape(node.nodeType)],
-                    new THREE.MeshLambertMaterial({
-                        // Setup colors
-                        color: graphColorFn(
-                            node,
-                            graphData,
-                            threshold,
-                            highlightNodes,
-                            hoverNode
-                        ),
-                        transparent: true,
-                        opacity: getNodeOpacity(node),
-                    })
-                )
-            }
+            nodeThreeObject={textNodes}
             nodeThreeObjectExtend={false}
             // Get data
             graphData={graphData}
             // JSON column for node names
             nodeLabel="id"
             // Setup link width
-            linkWidth={(link) => (highlightLinks.has(link) ? 4 : 1)}
+            linkWidth={(link) => (highlightLinks.has(link) ? 2 : 1)}
             // Setup data transfer visualization across links
             linkDirectionalParticles={(link) =>
                 highlightLinks.has(link) ? 4 : 0
             }
             // Width of data transfer points
-            linkDirectionalParticleWidth={4}
-            linkDirectionalArrowLength={5}
-            linkDirectionalArrowRelPos={1.05}
-            // Change where node is when clicking and dragging
-            onNodeDragEnd={(node) => {
-                if (node.x && node.y && node.z) {
-                    node.fx = node.x;
-                    node.fy = node.y;
-                    node.fz = node.z;
-                }
-            }}
+            linkDirectionalParticleWidth={2}
+            linkDirectionalArrowLength={4}
+            linkDirectionalArrowRelPos={1}
             // Select node on left click
             onNodeClick={handleNodeClick}
             //  node right click menu

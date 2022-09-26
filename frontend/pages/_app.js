@@ -4,9 +4,6 @@ import Head from "next/head";
 import Script from "next/script";
 import Layout from "../components/Layout";
 
-import { useRouter } from "next/router";
-import { getHeaderString } from "../utils/stringUtils";
-
 // The following imports prevents a Font Awesome icon server-side rendering bug,
 // where the icons flash from a very large icon down to a properly sized one:
 import "@fortawesome/fontawesome-svg-core/styles.css";
