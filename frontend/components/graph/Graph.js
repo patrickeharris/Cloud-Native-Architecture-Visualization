@@ -35,7 +35,7 @@ const GraphComponent = ({ graphRef, graphColorFn }) => {
     const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
     const [threshold, setThreshold] = useAtom(couplingThresholdAtom);
 
-    const [graphData, setGraphData] = useAtom(graphDataAtom);
+    const [graphData] = useAtom(graphDataAtom);
 
     const [initCoords, setInitCoords] = useAtom(initCoordsAtom);
     const [initRotation, setInitRotation] = useAtom(initRotationAtom);
@@ -143,17 +143,21 @@ const GraphComponent = ({ graphRef, graphColorFn }) => {
         [graphRef]
     );
 
-    const textNodes = (node) => {
+    const getGraphColor = (node) => {
+        if (highlightNodes && highlightNodes.has(node)) {
+            if (node === hoverNode) {
+                return `rgb(50,50,200)`;
+            } else {
+                return `rgb(0,200,200)`;
+            }
+        }
+        return graphColorFn(node, threshold);
+    };
+
+    const textNode = (node) => {
         const sprite = new SpriteText(node.id);
-        sprite.color = graphColorFn(
-            node,
-            graphData,
-            threshold,
-            highlightNodes,
-            hoverNode,
-            getNodeOpacity
-        );
-        sprite.textHeight = 8;
+        sprite.color = getGraphColor(node);
+        sprite.textHeight = 2;
         sprite.fontWeight = "bold";
         sprite.backgroundColor = "rgba(10,10,10,0.2)";
         sprite.padding = 2;
@@ -172,23 +176,28 @@ const GraphComponent = ({ graphRef, graphColorFn }) => {
             ][NodeFns.getShape(node.nodeType)],
             new THREE.MeshLambertMaterial({
                 // Setup colors
-                color: graphColorFn(
-                    node,
-                    graphData,
-                    threshold,
-                    highlightNodes,
-                    hoverNode
-                ),
+                color: graphColorFn(node, threshold, getNodeOpacity),
                 transparent: true,
                 opacity: getNodeOpacity(node),
             })
         );
     };
 
+    const labeledNode = (node) => {
+        const group = new THREE.Group();
+        const shape = customNode(node);
+        const text = textNode(node);
+        shape.position.set(0, 0, 0);
+        text.position.set(0, 10, 0);
+        group.add(text);
+        group.add(shape);
+        return group;
+    };
+
     const Graph = (
         <ForceGraph3D
             //  Setup shapes
-            nodeThreeObject={textNodes}
+            nodeThreeObject={labeledNode}
             nodeThreeObjectExtend={false}
             // Get data
             graphData={graphData}

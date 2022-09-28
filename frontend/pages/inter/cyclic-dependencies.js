@@ -10,6 +10,8 @@ const CyclicDependencies = () => {
     const [graphData, setGraphData] = useAtom(graphDataAtom);
     const [sccs, setSccs] = useState();
 
+    console.log(sccs);
+
     const getSccs = () => {
         const { links } = graphData;
         var graph = new Graph();
@@ -32,22 +34,7 @@ const CyclicDependencies = () => {
     };
     useEffect(getSccs, []);
 
-    function getColor(
-        node,
-        graphData,
-        threshold,
-        highlightNodes,
-        hoverNode,
-        opacityFn
-    ) {
-        if (highlightNodes && highlightNodes.has(node)) {
-            if (node === hoverNode) {
-                return `rgba(50,50,200,${opacityFn(node)})`;
-            } else {
-                return `rgba(0,200,200,${opacityFn(node)})`;
-            }
-        }
-
+    function getColor(node, threshold) {
         let color = null;
         if (!sccs) {
             sccs = getSccs();
@@ -55,15 +42,15 @@ const CyclicDependencies = () => {
         sccs.forEach((scc, index) => {
             if (scc.includes(node.id)) {
                 if (scc.length >= threshold) {
-                    color = `rgba(255,102,102,${opacityFn(node)})`;
+                    color = `rgb(255,102,102)`;
                 } else if (scc.length >= threshold / 2) {
-                    color = `rgba(102,102,255,${opacityFn(node)})`;
+                    color = `rgb(102,102,255)`;
                 }
             }
             if (color) return;
         });
 
-        return color ?? `rgba(100,100,100,${opacityFn(node)})`;
+        return color ?? `rgb(100,100,100)`;
     }
 
     return (

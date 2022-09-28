@@ -2,6 +2,7 @@ export class Graph {
     constructor() {
         this.list = {};
     }
+
     insert(newVertex, neighborVertex) {
         if (!this.list[newVertex]) {
             if (neighborVertex) {
@@ -19,6 +20,7 @@ export class Graph {
             this.list[newVertex].push(neighborVertex);
         }
     }
+
     addEdge(vertexFrom, vertexTo) {
         if (this.list[vertexFrom] || this.list[vertexTo]) {
             throw new Error("Vertex does not exsists");
@@ -26,14 +28,8 @@ export class Graph {
 
         this.list[vertexFrom].push(vertexTo);
     }
-    /*
-     * DFS
-     *
-     * @param graph {object}: Takes different graph as optional
-     * @param vertex {string|integer}
-     * @param cb {function}
-     */
-    dfs(graph, vertex, cb, visited) {
+
+    dfs(graph, vertex, callback, visited) {
         // track which node visited
         var visited = visited || {};
 
@@ -52,7 +48,7 @@ export class Graph {
             var nextNode = stack.pop();
 
             // Invoke given function
-            cb(nextNode);
+            callback(nextNode);
 
             // Iterate adjacent nodes
             if (list[nextNode]) {
@@ -67,6 +63,7 @@ export class Graph {
             }
         }
     }
+
     getStrongComponent(vertex) {
         if (vertex && !this.list[vertex]) {
             console.log(vertex);
@@ -95,11 +92,6 @@ export class Graph {
             );
         }
 
-        /**
-         *
-         * Create SCC
-         *
-         **/
         var allSCC = [];
         visited = {};
         stack.reverse().forEach((vertex) => {

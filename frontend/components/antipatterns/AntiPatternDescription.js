@@ -4,7 +4,7 @@ const AntiPatternDescription = ({ data }) => {
     const [open, setOpen] = useState(true);
 
     return (
-        <div className="isolate z-40 bg-slate-900 bg-opacity-80 w-1/2 h-fit absolute top-4 left-16 rounded-lg p-4 duration-200 ease-in-out">
+        <div className="isolate z-40 bg-slate-900 bg-opacity-80 w-1/4 h-fit absolute top-4 left-16 rounded-lg p-4 duration-200 ease-in-out">
             <button
                 className={`absolute top-4 right-4 w-fit h-fit duration-200 ease-in-out ${
                     open ? `rotate-180` : ``

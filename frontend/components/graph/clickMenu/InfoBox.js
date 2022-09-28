@@ -15,7 +15,7 @@ export const InfoBox = () => {
     if (show) {
         return (
             <ul
-                className="absolute flex flex-col bg-slate-900 bg-opacity-80 gap-2 rounded-lg p-4"
+                className="absolute flex flex-col bg-slate-900 bg-opacity-90 gap-2 rounded-lg p-4 z-[70]"
                 style={{ top: anchorPoint.y, left: anchorPoint.x }}
             >
                 <p>Name: {name}</p>
