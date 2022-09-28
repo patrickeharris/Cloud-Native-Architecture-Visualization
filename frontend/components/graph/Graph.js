@@ -12,13 +12,10 @@ import {
     graphSearchAtom,
 } from "../../utils/atoms";
 import SpriteText from "three-spritetext";
+import { useRouter } from "next/router";
 
 /**
- * @TODO fullscreen bug?
- * @TODO navbar obscures right side graph
  * @TODO right click needs to be moved to be embedded with graph like left click
- * @TODO drag bug
- * @TODO names over each node
  * @TODO make arrows more visible
  * @param {Object} props The props passed to this object
  * @param {React.MutableRefObject<ForceGraphMethods>} props.graphRef Reference to the internal force graph to access methods/camera
@@ -42,6 +39,7 @@ const GraphComponent = ({ graphRef, graphColorFn }) => {
     const [search] = useAtom(graphSearchAtom);
 
     const nodes = graphData.nodes.map((node) => node.id);
+    const router = useRouter();
 
     useEffect(() => {
         setDimensions({
@@ -54,6 +52,13 @@ const GraphComponent = ({ graphRef, graphColorFn }) => {
         setInitCoords({ x, y, z });
         setInitRotation(graphRef.current.camera().quaternion);
     }, [window.innerWidth, window.innerHeight]);
+
+    // This is a hack
+    useEffect(() => {
+        router.events.on("routeChangeComplete", () => {
+            router.reload();
+        });
+    }, []);
 
     // Highlight neighbors
     const getHighlightNeighbors = (node) => {
@@ -211,7 +216,7 @@ const GraphComponent = ({ graphRef, graphColorFn }) => {
             }
             // Width of data transfer points
             linkDirectionalParticleWidth={3}
-            linkDirectionalArrowLength={4}
+            linkDirectionalArrowLength={6}
             linkDirectionalArrowRelPos={1}
             // Select node on left click
             onNodeClick={handleNodeClick}

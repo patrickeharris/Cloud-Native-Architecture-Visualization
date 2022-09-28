@@ -22,42 +22,6 @@ export function getShape(type) {
     }
 }
 
-// Sets color of node
-export function getColor(
-    node,
-    graphData,
-    threshold,
-    highlightNodes,
-    hoverNode,
-    opacityFn
-) {
-    let { nodes, links } = graphData;
-    let numNeighbors = getNeighbors(node, links).nodes.length;
-
-    if (!opacityFn) {
-        opacityFn = (node) => {
-            return 1;
-        };
-    }
-
-    if (highlightNodes && highlightNodes.has(node)) {
-        if (node === hoverNode) {
-            return `rgba(50,50,200,${opacityFn(node)})`;
-        } else {
-            return `rgba(0,200,200,${opacityFn(node)})`;
-        }
-    }
-
-    if (numNeighbors > threshold) {
-        return `rgba(255,0,0,${opacityFn(node)})`;
-    }
-    if (numNeighbors > threshold / 2) {
-        return `rgba(255,160,0, ${opacityFn(node)})`;
-    }
-
-    return `rgba(0,255,0, ${opacityFn(node)})`;
-}
-
 // Find neighbors of a given node
 export function getNeighbors(node, links) {
     return {
