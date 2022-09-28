@@ -10,8 +10,6 @@ const CyclicDependencies = () => {
     const [graphData, setGraphData] = useAtom(graphDataAtom);
     const [sccs, setSccs] = useState();
 
-    console.log(sccs);
-
     const getSccs = () => {
         const { links } = graphData;
         var graph = new Graph();

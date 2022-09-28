@@ -4,6 +4,7 @@ import GraphMenu from "../graph/rightMenu/GraphMenu";
 import { Menu } from "../graph/clickMenu/Menu";
 import { InfoBox } from "../graph/clickMenu/InfoBox";
 import AntiPatternDescription from "./AntiPatternDescription";
+import Router, { useRouter } from "next/router";
 
 const NodeVisLayout = ({ graphColorFn, antipatternJSON }) => {
     /**
@@ -11,11 +12,16 @@ const NodeVisLayout = ({ graphColorFn, antipatternJSON }) => {
      * @type {React.MutableRefObject<ForceGraphMethods>}
      * */
     const graphRef = useRef();
+    const { asPath } = useRouter();
 
     return (
         <div className="flex flex-row justify-center items-center w-full h-screen relative z-10">
             <GraphMenu graphRef={graphRef} />
-            <Graph graphRef={graphRef} graphColorFn={graphColorFn} />
+            <Graph
+                graphRef={graphRef}
+                graphColorFn={graphColorFn}
+                key={"graph" + asPath}
+            />
             <AntiPatternDescription data={antipatternJSON} />
             <InfoBox />
         </div>
