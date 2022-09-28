@@ -73,8 +73,8 @@ const GraphComponent = ({ graphRef, graphColorFn }) => {
     // Handle behavior on hovering over a node
     const handleNodeHover = (node, prevNode) => {
         // No state change
-        // if ((!node && !highlightNodes.size) || (node && hoverNode === node))
-        //     return;
+        if ((!node && !highlightNodes.size) || (node && hoverNode === node))
+            return;
 
         highlightNodes.clear();
         highlightLinks.clear();
@@ -119,7 +119,7 @@ const GraphComponent = ({ graphRef, graphColorFn }) => {
         (node) => {
             if (node != null) {
                 setSelectedNode(node);
-                const distance = 100;
+                const distance = 300;
                 const distRatio =
                     1 + distance / Math.hypot(node.x, node.y, node.z);
                 if (graphRef.current) {
@@ -195,13 +195,13 @@ const GraphComponent = ({ graphRef, graphColorFn }) => {
             // JSON column for node names
             nodeLabel="id"
             // Setup link width
-            linkWidth={(link) => (highlightLinks.has(link) ? 2 : 1)}
+            linkWidth={(link) => (highlightLinks.has(link) ? 3 : 1)}
             // Setup data transfer visualization across links
             linkDirectionalParticles={(link) =>
                 highlightLinks.has(link) ? 4 : 0
             }
             // Width of data transfer points
-            linkDirectionalParticleWidth={2}
+            linkDirectionalParticleWidth={3}
             linkDirectionalArrowLength={4}
             linkDirectionalArrowRelPos={1}
             // Select node on left click
