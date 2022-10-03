@@ -1,0 +1,23 @@
+{
+  "name": "Low Cohesive Operations",
+  "aliases": [
+    ""
+  ],
+  "description": "A service that provides many low cohesive operations that are not really related to each other.",
+  "context": "High cohesion is one of the most important design principles for SOA and Microservices. Services should provide operations that are closely related to each other. Functionality that is likely to change together should be in the same service.",
+  "detection": "",
+  "consequences": "The maintainability of such a service may be reduced. It may be more difficult to analyze and grasp all provided service functionality.",
+  "cause": "",
+  "solution": "",
+  "example": "",
+  "sources": [
+    "@inproceedings{palma2015study, title={A study on the taxonomy of service antipatterns}, author={Palma, Francis and Mohay, Naouel}, booktitle={Patterns Promotion and Anti-patterns Prevention (PPAP), 2015 IEEE 2nd Workshop on}, pages={5--8}, year={2015}, doi={10.1109/PPAP.2015.7076848}}"
+  ],
+  "tags": [
+    "microservices",
+    "soa",
+    "architecture"
+  ],
+  "relatedItems": [
+  ]
+}

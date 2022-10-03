@@ -15,7 +15,7 @@ const tabs = [
             { name: "Service Chain", href: "/inter/service-chain" },
             {
                 name: "Duplicated Service",
-                href: "/inter/duplicated",
+                href: "/inter/duplicated-service",
             },
             {
                 name: "Shared Persistency",
@@ -27,7 +27,7 @@ const tabs = [
             },
             {
                 name: "Stovepipe Service",
-                href: "/inter/scattered-parasitic",
+                href: "/inter/stovepipe-service",
             },
             {
                 name: "Wrong Cuts",

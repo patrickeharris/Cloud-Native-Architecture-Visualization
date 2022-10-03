@@ -1,0 +1,36 @@
+{
+  "name": "Wrong Cuts",
+  "aliases": [
+    ""
+  ],
+  "description": "Services are split on the basis of technical layers (presentation, business, and data layers) instead of business capabilities.",
+  "context": "",
+  "detection": "",
+  "consequences": "Such a wrong separation of concerns can lead to increased data-splitting complexity. Moreover, this may cause ripple effects on changes and therefore decreases maintainability. Lastly, it may impact performance, if several services are needed to fulfill an abstraction.",
+  "cause": "",
+  "solution": "Perform a clear analysis of business processes and the need for resources and use this knowledge to refactor the services according to bounded contexts.",
+  "example": "",
+  "sources": [
+    "@article{taibi2018definition, title={On the Definition of Microservice Bad Smells}, author={Taibi, Davide and Lenarduzzi, Valentina}, journal={IEEE software}, volume={35}, number={3}, pages={56--62}, year={2018}, publisher={IEEE}, doi={10.1109/ms.2018.2141031}}"
+  ],
+  "tags": [
+    "microservices",
+    "architecture",
+    "cohesion",
+    "coupling"
+  ],
+  "relatedItems": [
+    {
+      "relation": "follows",
+      "name": "Data Service"
+    },
+    {
+      "relation": "follows",
+      "name": "Transactional Integration"
+    },
+    {
+      "relation": "follows",
+      "name": "Service Chain"
+    }
+  ]
+}
