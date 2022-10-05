@@ -40,15 +40,15 @@ const CyclicDependencies = () => {
         sccs.forEach((scc, index) => {
             if (scc.includes(node.id)) {
                 if (scc.length >= threshold) {
-                    color = `rgb(255,102,102)`;
+                    color = `rgb(255,0,0)`;
                 } else if (scc.length >= threshold / 2) {
-                    color = `rgb(102,102,255)`;
+                    color = `rgb(255,160,0)`;
                 }
             }
             if (color) return;
         });
 
-        return color ?? `rgb(100,100,100)`;
+        return color ?? `rgb(0,255,0)`;
     }
 
     return (
