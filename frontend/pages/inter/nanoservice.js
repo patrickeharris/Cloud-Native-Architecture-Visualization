@@ -1,16 +1,34 @@
 import React from "react";
 import nanoData from "../../utils/antipatterns/nano_service.json";
 import InterNodeVisLayout from "../../components/antipatterns/InterNodeVisLayout";
-import { getNeighbors } from "../../utils/visualizer/nodeFunctions";
 import { useAtom } from "jotai";
 import { graphDataAtom } from "../../utils/atoms";
+
+function getDegreeOut(node, links) {
+    return {
+        nodeLinks: links.filter((link) => {
+            return (
+                link.source.nodeID === node.nodeID
+            );
+        }),
+        nodes: links.reduce(
+            (neighbors, link) => {
+                if (link.source.id === node.id) {
+                    neighbors.push(link.target);
+                }
+                return neighbors;
+            },
+            [node]
+        ),
+    };
+}
 
 const Nanoservice = () => {
     const [graphData] = useAtom(graphDataAtom);
 
     function getColor(node, threshold) {
         let { nodes, links } = graphData;
-        let numNeighbors = getNeighbors(node, links).nodes.length;
+        let numNeighbors = getDegreeOut(node, links).nodes.length;
 
         if (numNeighbors > threshold) {
             return `rgb(255,0,0)`;

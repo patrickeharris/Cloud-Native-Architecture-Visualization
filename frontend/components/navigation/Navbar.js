@@ -11,6 +11,7 @@ const tabs = [
             },
             { name: "Knot", href: "/inter/knot" },
             { name: "Bottleneck", href: "/inter/bottleneck" },
+            { name: "Nanoservice", href: "/inter/nanoservice" },
             { name: "Sand Pile", href: "/inter/sandpile" },
             { name: "Service Chain", href: "/inter/service-chain" },
             {
@@ -40,7 +41,6 @@ const tabs = [
         tabs: [
             { name: "Chatty Service", href: "/intra/chatty" },
             { name: "Mega Service", href: "/intra/megaservice" },
-            { name: "Nanoservice", href: "/intra/nanoservice" },
             {
                 name: "Low Cohesive Operations",
                 href: "/intra/low-cohesion",
