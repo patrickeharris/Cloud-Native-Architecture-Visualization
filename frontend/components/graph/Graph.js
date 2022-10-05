@@ -25,9 +25,6 @@ const GraphComponent = ({ graphRef, graphColorFn }) => {
     const [highlightNodes, setHighlightNodes] = useState(new Set());
     const [highlightLinks, setHighlightLinks] = useState(new Set());
 
-    const [selectedNode, setSelectedNode] = useState();
-    const [selectedLink, setSelectedLink] = useState();
-
     const [hoverNode, setHoverNode] = useState();
     const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
     const [threshold, setThreshold] = useAtom(couplingThresholdAtom);
@@ -38,7 +35,6 @@ const GraphComponent = ({ graphRef, graphColorFn }) => {
     const [initRotation, setInitRotation] = useAtom(initRotationAtom);
     const [search] = useAtom(graphSearchAtom);
 
-    const nodes = graphData.nodes.map((node) => node.id);
     const router = useRouter();
 
     useEffect(() => {
@@ -60,6 +56,11 @@ const GraphComponent = ({ graphRef, graphColorFn }) => {
         });
     }, []);
 
+    // Glow on search
+    useEffect(() => {
+        if (typeof graphData.links[0].source == "string") return;
+    }, [search]);
+
     // Highlight neighbors
     const getHighlightNeighbors = (node) => {
         let { links } = graphData;
@@ -72,6 +73,7 @@ const GraphComponent = ({ graphRef, graphColorFn }) => {
     const updateHighlight = () => {
         setHighlightNodes(highlightNodes);
         setHighlightLinks(highlightLinks);
+
         graphRef.current.refresh();
     };
 
@@ -123,7 +125,6 @@ const GraphComponent = ({ graphRef, graphColorFn }) => {
     const handleNodeClick = useCallback(
         (node) => {
             if (node != null) {
-                setSelectedNode(node);
                 const distance = 300;
                 const distRatio =
                     1 + distance / Math.hypot(node.x, node.y, node.z);
@@ -196,6 +197,22 @@ const GraphComponent = ({ graphRef, graphColorFn }) => {
         text.position.set(0, 10, 0);
         group.add(text);
         group.add(shape);
+
+        if (
+            node.id.toLowerCase().includes(search.toLowerCase()) &&
+            search != ""
+        ) {
+            var outlineMaterial1 = new THREE.MeshStandardMaterial({
+                color: "rgba(255,255,255,0.3)",
+                side: THREE.BackSide,
+                emissive: 0xffffff,
+            });
+            var outlineMesh1 = new THREE.Mesh(shape.geometry, outlineMaterial1);
+            outlineMesh1.position.set(0, 0, 0);
+            outlineMesh1.scale.multiplyScalar(1.25);
+            group.add(outlineMesh1);
+        }
+
         return group;
     };
 
@@ -221,10 +238,6 @@ const GraphComponent = ({ graphRef, graphColorFn }) => {
             // Select node on left click
             onNodeClick={handleNodeClick}
             //  node right click menu
-            onNodeRightClick={(node, e) => {
-                // Set selected node
-                setSelectedNode(node);
-            }}
             // Setup hovering on nodes
             // This is causing some error
             onNodeHover={handleNodeHover}
@@ -246,3 +259,56 @@ const GraphComponent = ({ graphRef, graphColorFn }) => {
 };
 
 export default GraphComponent;
+
+// Broken post-processing code that I hate deeply
+
+// /**@type {OutlinePass} */
+// const [outlinePass, setOutlinePass] = useState();
+// const [outlineNodes, setOutlineNodes] = useState([]);
+
+// useEffect(() => {
+//     outlinePass = new OutlinePass(
+//         new THREE.Vector2(window.innerWidth, window.innerHeight),
+//         graphRef.current.camera(),
+//         graphRef.current.scene(),
+//         []
+//     );
+//     outlinePass.renderToScreen = true;
+
+//     var params = {
+//         edgeStrength: 2,
+//         edgeGlow: 2,
+//         edgeThickness: 1.0,
+//         pulsePeriod: 0,
+//         usePatternTexture: false,
+//     };
+
+//     outlinePass.edgeStrength = params.edgeStrength;
+//     outlinePass.edgeGlow = params.edgeGlow;
+//     outlinePass.visibleEdgeColor.set(0xffffff);
+//     outlinePass.hiddenEdgeColor.set(0xffffff);
+
+//     graphRef.current.postProcessingComposer().addPass(outlinePass);
+//     console.log("here");
+// }, []);
+
+// useEffect(() => {
+//     if (typeof graphData.links[0].source == "string") return;
+
+//     let newSelected = [];
+//     const nodes = graphData.nodes.filter((node) =>
+//         node.id.toLowerCase().includes(search.toLowerCase())
+//     );
+//     nodes.forEach((node) => {
+//         const group = node.__threeObj;
+//         const mesh = group.children[1];
+//         if (mesh.matrix.elements) {
+//             newSelected.push(group.children[1]);
+//         }
+//     });
+//     outlinePass.renderCamera = graphRef.current.camera();
+//     outlinePass.renderScene = graphRef.current.scene();
+//     outlinePass.selectedObjects = newSelected;
+//     setOutlinePass(outlinePass);
+//     // graphRef.current.postProcessingComposer().reset();
+// }, [search]);
