@@ -59,3 +59,13 @@ export function resetView(graphRef, initCoords) {
     );
     reset(graphRef);
 }
+
+export function getDuplicates(node, graph) {
+    let count = 0;
+    for(var vertex in graph){
+        if(vertex.id == node.id){
+            count++;
+        }
+    }
+    return count;
+}
