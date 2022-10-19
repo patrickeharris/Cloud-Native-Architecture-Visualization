@@ -47,19 +47,6 @@ const GraphComponent = ({ graphRef, graphColorFn, isIntraNode }) => {
 
         setInitCoords({ x, y, z });
         setInitRotation(graphRef.current.camera().quaternion);
-
-        // if (isIntraNode) {
-        //     console.log("here");
-        //     var cubeMat = new THREE.MeshStandardMaterial({
-        //         color: "rgb(100,100,100)",
-        //         side: THREE.BackSide,
-        //     });
-        //     var mesh = new THREE.Mesh(
-        //         new THREE.BoxGeometry(100, 100, 100),
-        //         cubeMat
-        //     );
-        //     graphRef.current.scene().add(mesh);
-        // }
     }, [window.innerWidth, window.innerHeight]);
 
     // This is a hack
@@ -67,6 +54,31 @@ const GraphComponent = ({ graphRef, graphColorFn, isIntraNode }) => {
         router.events.on("routeChangeComplete", () => {
             router.reload();
         });
+    }, []);
+
+    useEffect(() => {
+        if (isIntraNode == true) {
+            console.log("here");
+            var grid = new THREE.GridHelper(500, 20);
+            grid.position.set(0, -250, 0);
+            graphRef.current.scene().add(grid);
+
+            var vertGrid = new THREE.GridHelper(500, 20);
+            vertGrid.rotateOnAxis(
+                new THREE.Vector3(0, 0, 1),
+                (Math.PI * 1) / 2
+            );
+            vertGrid.position.set(-250, 0, 0);
+            graphRef.current.scene().add(vertGrid);
+
+            var vertGrid2 = new THREE.GridHelper(500, 20);
+            vertGrid2.rotateOnAxis(
+                new THREE.Vector3(1, 0, 0),
+                (Math.PI * 1) / 2
+            );
+            vertGrid2.position.set(0, 0, -250);
+            graphRef.current.scene().add(vertGrid2);
+        }
     }, []);
 
     // Glow on search

@@ -21,7 +21,7 @@ const NodeVisLayout = ({ graphColorFn, antipatternJSON, isIntraNode }) => {
                 graphRef={graphRef}
                 graphColorFn={graphColorFn}
                 key={"graph" + asPath}
-                isIntraNode
+                isIntraNode={isIntraNode}
             />
             <AntiPatternDescription data={antipatternJSON} />
             <InfoBox />
