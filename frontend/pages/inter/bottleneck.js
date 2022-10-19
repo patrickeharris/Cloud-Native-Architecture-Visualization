@@ -7,9 +7,7 @@ import { useAtom } from "jotai";
 function getDegreeIn(node, links) {
     return {
         nodeLinks: links.filter((link) => {
-            return (
-                link.target.nodeID === node.nodeID
-            );
+            return link.target.id === node.id;
         }),
         nodes: links.reduce(
             (neighbors, link) => {

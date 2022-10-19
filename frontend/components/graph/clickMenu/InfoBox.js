@@ -1,16 +1,8 @@
 import { useInfoBox } from "../../../hooks/useInfoBox";
 
 export const InfoBox = () => {
-    const {
-        anchorPoint,
-        show,
-        name,
-        id,
-        type,
-        depends,
-        setShow,
-        dependencies,
-    } = useInfoBox();
+    const { anchorPoint, show, name, id, type, depends, setShow } =
+        useInfoBox();
 
     if (show) {
         return (
@@ -21,9 +13,9 @@ export const InfoBox = () => {
                 <p>Name: {name}</p>
                 <p>Type: {type}</p>
                 <p>ID: {id}</p>
-                <ul className="list-disc list-inside">
-                    Dependencies: {dependencies}
-                </ul>
+                {/* <ul className="list-disc list-inside">
+                    Dependencies: {dependencies ?? "None"}
+                </ul> */}
                 <ul className="list-disc list-inside">Depends On: {depends}</ul>
                 <button
                     onClick={() => setShow(false)}

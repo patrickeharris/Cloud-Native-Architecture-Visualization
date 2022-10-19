@@ -48,7 +48,7 @@ const Search = ({ graphRef }) => {
             />
             <datalist id="nodeOptions">
                 {graphData.nodes.map((node) => (
-                    <option key={node.nodeID}>{node.id}</option>
+                    <option key={node.id}>{node.id}</option>
                 ))}
             </datalist>
         </div>

@@ -7,9 +7,7 @@ import { graphDataAtom } from "../../utils/atoms";
 function getDegreeOut(node, links) {
     return {
         nodeLinks: links.filter((link) => {
-            return (
-                link.source.nodeID === node.nodeID
-            );
+            return link.source.id === node.id;
         }),
         nodes: links.reduce(
             (neighbors, link) => {
