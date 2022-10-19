@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import NavItem from "./NavItem";
 
 const tabs = [
+    { name: "Home", href: "/" },
     {
         section: "Inter-node antipatterns",
         tabs: [
