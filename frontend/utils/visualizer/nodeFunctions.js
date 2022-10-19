@@ -85,7 +85,7 @@ const levenshteinDistance = (str1 = '', str2 = '') => {
 export function getDuplicates(node, graph) {
     let count = 0;
     for(const vertex in graph){
-        if(levenshteinDistance(graph[vertex].id, node.id) < 5){
+        if(levenshteinDistance(graph[vertex].id, node.id) < 3){
             count++;
         }
     }
