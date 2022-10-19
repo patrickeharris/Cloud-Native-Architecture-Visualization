@@ -1,14 +1,21 @@
-import React from "react";
-import TypewritterText from "../components/general/TypewritterText";
+import React, { useEffect, useRef, useState } from "react";
+import { useRouter } from "next/router";
 
 /**
- * The home page of the web app, returned as a react component, auto-routed by next to "/"
- * @returns {React.Component} The home page of the web app.
+ * This page renders the 3d force graph.
+ *
+ * @TODO Implement buttons, search, etc.
+ * @TODO Fix dragging by adding either the dragging script or exporting functionality
+ * @returns {React.Component} The 3D viualizer page ("/visualizer/3d")
  */
-export default function Home() {
-    return (
-        <div className="w-screen flex flex-row justify-center pt-16">
-            <TypewritterText text={"Welcome to our visualization tool."} />
-        </div>
-    );
-}
+const ThreeD = () => {
+    const router = useRouter();
+
+    useEffect(() => {
+        router.push("/inter/cyclic-dependencies");
+    }, []);
+
+    return <></>;
+};
+
+export default ThreeD;

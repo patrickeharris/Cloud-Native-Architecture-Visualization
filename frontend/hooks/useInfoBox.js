@@ -11,33 +11,31 @@ export const useInfoBox = () => {
     const [id, setId] = useState();
     const [graphData, setGraphData] = useAtom(graphDataAtom);
     const [depends, setDepends] = useState();
-    const [dependencies, setDependencies] = useState();
+    // const [dependencies, setDependencies] = useState();
 
     const handleClick = useCallback(
         (event) => {
             setAnchorPoint({ x: event.pageX, y: event.pageY });
             setName(event.detail.node.id);
             setType(event.detail.node.nodeType);
-            setId(event.detail.node.nodeID);
+            setId(event.detail.node.id);
             let neighbors = getNeighbors(
                 event.detail.node,
                 graphData.links
             ).nodes;
             neighbors.splice(neighbors.indexOf(event.detail.node), 1);
-            let dependency = neighbors.map((data) => {
-                if (
-                    event.detail.node.dependencies.includes(
-                        parseInt(data.nodeID)
-                    )
-                ) {
-                    neighbors.splice(neighbors.indexOf(data), 1);
-                    return <li key={data.id}>{data.id}</li>;
-                }
-            });
+            // let dependency = neighbors.map((node) => {
+            //     if (
+            //         event.detail.node.dependencies.includes(parseInt(node.id))
+            //     ) {
+            //         neighbors.splice(neighbors.indexOf(node), 1);
+            //         return <li key={data.id}>{data.id}</li>;
+            //     }
+            // });
             neighbors = neighbors.map((data) => {
                 return <li key={data.id}>{data.id}</li>;
             });
-            setDependencies(dependency);
+            // setDependencies(dependency);
             setDepends(neighbors);
             setShow(true);
         },
@@ -65,6 +63,5 @@ export const useInfoBox = () => {
         id,
         depends,
         setShow,
-        dependencies,
     };
 };

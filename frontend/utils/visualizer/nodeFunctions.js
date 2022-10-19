@@ -26,10 +26,7 @@ export function getShape(type) {
 export function getNeighbors(node, links) {
     return {
         nodeLinks: links.filter((link) => {
-            return (
-                link.source.nodeID === node.nodeID ||
-                link.target.nodeID === node.nodeID
-            );
+            return link.source.id === node.id || link.target.id === node.id;
         }),
         nodes: links.reduce(
             (neighbors, link) => {
