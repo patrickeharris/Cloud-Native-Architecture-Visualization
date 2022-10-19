@@ -27,6 +27,7 @@ const LowCohesive = () => {
             <InterNodeVisLayout
                 graphColorFn={getColor}
                 antipatternJSON={lowCohesionData}
+                isIntraNode
             ></InterNodeVisLayout>
         </div>
     );

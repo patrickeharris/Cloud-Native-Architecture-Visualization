@@ -6,7 +6,7 @@ import { InfoBox } from "../graph/clickMenu/InfoBox";
 import AntiPatternDescription from "./AntiPatternDescription";
 import Router, { useRouter } from "next/router";
 
-const NodeVisLayout = ({ graphColorFn, antipatternJSON }) => {
+const NodeVisLayout = ({ graphColorFn, antipatternJSON, isIntraNode }) => {
     /**
      * This acts as a reference to the internal force graph to call methods
      * @type {React.MutableRefObject<ForceGraphMethods>}
@@ -21,6 +21,7 @@ const NodeVisLayout = ({ graphColorFn, antipatternJSON }) => {
                 graphRef={graphRef}
                 graphColorFn={graphColorFn}
                 key={"graph" + asPath}
+                isIntraNode
             />
             <AntiPatternDescription data={antipatternJSON} />
             <InfoBox />
