@@ -21,7 +21,7 @@ import { useRouter } from "next/router";
  * @param {React.MutableRefObject<ForceGraphMethods>} props.graphRef Reference to the internal force graph to access methods/camera
  * @returns {JSX.Element} The graph
  */
-const GraphComponent = ({ graphRef, graphColorFn }) => {
+const GraphComponent = ({ graphRef, graphColorFn, isIntraNode }) => {
     const [highlightNodes, setHighlightNodes] = useState(new Set());
     const [highlightLinks, setHighlightLinks] = useState(new Set());
 
@@ -47,6 +47,19 @@ const GraphComponent = ({ graphRef, graphColorFn }) => {
 
         setInitCoords({ x, y, z });
         setInitRotation(graphRef.current.camera().quaternion);
+
+        // if (isIntraNode) {
+        //     console.log("here");
+        //     var cubeMat = new THREE.MeshStandardMaterial({
+        //         color: "rgb(100,100,100)",
+        //         side: THREE.BackSide,
+        //     });
+        //     var mesh = new THREE.Mesh(
+        //         new THREE.BoxGeometry(100, 100, 100),
+        //         cubeMat
+        //     );
+        //     graphRef.current.scene().add(mesh);
+        // }
     }, [window.innerWidth, window.innerHeight]);
 
     // This is a hack
@@ -244,9 +257,6 @@ const GraphComponent = ({ graphRef, graphColorFn }) => {
             // Setup hovering on links
             onLinkHover={handleLinkHover}
             // Setup clicking on links
-            onLinkClick={(link) => {
-                setSelectedLink(link);
-            }}
             width={dimensions.width}
             height={dimensions.height}
             ref={graphRef}

@@ -6,6 +6,9 @@ import { Graph } from "../../utils/graphAlgorithms";
 import { useAtom } from "jotai";
 import { graphDataAtom } from "../../utils/atoms";
 
+/**
+ * @todo This is broken
+ */
 const CyclicDependencies = () => {
     const [graphData, setGraphData] = useAtom(graphDataAtom);
     const [sccs, setSccs] = useState();
