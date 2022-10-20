@@ -6,7 +6,12 @@ import { InfoBox } from "../graph/clickMenu/InfoBox";
 import AntiPatternDescription from "./AntiPatternDescription";
 import Router, { useRouter } from "next/router";
 
-const NodeVisLayout = ({ graphColorFn, antipatternJSON, isIntraNode }) => {
+const NodeVisLayout = ({
+    graphColorFn,
+    antipatternJSON,
+    isIntraNode,
+    hasThreshold,
+}) => {
     /**
      * This acts as a reference to the internal force graph to call methods
      * @type {React.MutableRefObject<ForceGraphMethods>}
@@ -16,7 +21,7 @@ const NodeVisLayout = ({ graphColorFn, antipatternJSON, isIntraNode }) => {
 
     return (
         <div className="flex flex-row justify-center items-center w-full h-screen relative z-10">
-            <GraphMenu graphRef={graphRef} />
+            <GraphMenu graphRef={graphRef} hasThreshold={hasThreshold} />
             <Graph
                 graphRef={graphRef}
                 graphColorFn={graphColorFn}

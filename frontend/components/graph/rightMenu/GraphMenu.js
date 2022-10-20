@@ -10,12 +10,12 @@ import Slider from "./Slider";
  * @param {React.MutableRefObject<ForceGraphMethods>} props.graphRef Reference to the internal force graph to access methods/camera
  * @returns {JSX.Element} The menu for the graph
  */
-const GraphMenu = ({ graphRef }) => {
+const GraphMenu = ({ graphRef, hasThreshold }) => {
     return (
         <div className="absolute top-2 right-2 z-50 flex flex-col gap-2 text-sm bg-slate-900 bg-opacity-60 rounded-lg p-4 w-44">
             <Search graphRef={graphRef} />
             <GraphButtonMenu graphRef={graphRef} />
-            <Slider />
+            {hasThreshold ? <Slider /> : <></>}
         </div>
     );
 };

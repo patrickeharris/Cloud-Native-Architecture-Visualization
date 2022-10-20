@@ -19,9 +19,15 @@ import { useRouter } from "next/router";
  * @TODO make arrows more visible
  * @param {Object} props The props passed to this object
  * @param {React.MutableRefObject<ForceGraphMethods>} props.graphRef Reference to the internal force graph to access methods/camera
+ * @param {{width: int, height: int}} props.graphDimensions The dimensions of the graph
  * @returns {JSX.Element} The graph
  */
-const GraphComponent = ({ graphRef, graphColorFn, isIntraNode }) => {
+const GraphComponent = ({
+    graphRef,
+    graphColorFn,
+    isIntraNode,
+    graphDimensions,
+}) => {
     const [highlightNodes, setHighlightNodes] = useState(new Set());
     const [highlightLinks, setHighlightLinks] = useState(new Set());
 
@@ -38,10 +44,17 @@ const GraphComponent = ({ graphRef, graphColorFn, isIntraNode }) => {
     const router = useRouter();
 
     useEffect(() => {
-        setDimensions({
-            width: window.innerWidth,
-            height: window.innerHeight,
-        });
+        if (graphDimensions) {
+            setDimensions({
+                width: graphDimensions.width,
+                height: graphDimensions.height,
+            });
+        } else {
+            setDimensions({
+                width: window.innerWidth,
+                height: window.innerHeight,
+            });
+        }
 
         let { x, y, z } = graphRef.current.cameraPosition();
 
@@ -281,56 +294,3 @@ const GraphComponent = ({ graphRef, graphColorFn, isIntraNode }) => {
 };
 
 export default GraphComponent;
-
-// Broken post-processing code that I hate deeply
-
-// /**@type {OutlinePass} */
-// const [outlinePass, setOutlinePass] = useState();
-// const [outlineNodes, setOutlineNodes] = useState([]);
-
-// useEffect(() => {
-//     outlinePass = new OutlinePass(
-//         new THREE.Vector2(window.innerWidth, window.innerHeight),
-//         graphRef.current.camera(),
-//         graphRef.current.scene(),
-//         []
-//     );
-//     outlinePass.renderToScreen = true;
-
-//     var params = {
-//         edgeStrength: 2,
-//         edgeGlow: 2,
-//         edgeThickness: 1.0,
-//         pulsePeriod: 0,
-//         usePatternTexture: false,
-//     };
-
-//     outlinePass.edgeStrength = params.edgeStrength;
-//     outlinePass.edgeGlow = params.edgeGlow;
-//     outlinePass.visibleEdgeColor.set(0xffffff);
-//     outlinePass.hiddenEdgeColor.set(0xffffff);
-
-//     graphRef.current.postProcessingComposer().addPass(outlinePass);
-//     console.log("here");
-// }, []);
-
-// useEffect(() => {
-//     if (typeof graphData.links[0].source == "string") return;
-
-//     let newSelected = [];
-//     const nodes = graphData.nodes.filter((node) =>
-//         node.id.toLowerCase().includes(search.toLowerCase())
-//     );
-//     nodes.forEach((node) => {
-//         const group = node.__threeObj;
-//         const mesh = group.children[1];
-//         if (mesh.matrix.elements) {
-//             newSelected.push(group.children[1]);
-//         }
-//     });
-//     outlinePass.renderCamera = graphRef.current.camera();
-//     outlinePass.renderScene = graphRef.current.scene();
-//     outlinePass.selectedObjects = newSelected;
-//     setOutlinePass(outlinePass);
-//     // graphRef.current.postProcessingComposer().reset();
-// }, [search]);

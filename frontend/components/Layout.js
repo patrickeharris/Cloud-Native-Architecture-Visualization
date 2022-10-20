@@ -32,7 +32,7 @@ const Layout = ({ children, ...props }) => {
         >
             <Navbar />
             <main className="min-h-screen">{children}</main>
-            {asPath !== "/visualizer/3d" ? <Footer></Footer> : <></>}
+            <Footer></Footer>
         </div>
     );
 };

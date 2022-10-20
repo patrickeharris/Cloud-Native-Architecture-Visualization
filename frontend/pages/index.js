@@ -1,5 +1,14 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
+import IndexVisLayout from "../components/general/IndexGraphLayout";
+
+const steps = [
+    {
+        title: "Welcome",
+        number: 1,
+        text: "Walk through the following steps to explore the graph!",
+    },
+];
 
 /**
  * This page renders the 3d force graph.
@@ -53,18 +62,18 @@ const Home = () => {
                                 <li>
                                     Microservice Smell:
                                     <div className="font-light text-gray-200">
-                                        Symptoms of poor design that can hinder
-                                        code understandability and decrease
-                                        mantainability
+                                        Symptoms of possibly poor design that
+                                        may hinder code understandability and
+                                        decrease mantainability
                                     </div>
                                 </li>
                                 <li>
                                     Anti-pattern:
                                     <div className="font-light text-gray-200">
                                         A common coding response to a problem
-                                        that contributes a detriment to the
-                                        overall system. Specifically, this tool
-                                        focuses on{" "}
+                                        that can sometimes contribute a
+                                        detriment to the overall system.
+                                        Specifically, this tool focuses on{" "}
                                         <em>Service-based Antipatterns</em> in
                                         microservice architectures.
                                     </div>
@@ -75,6 +84,9 @@ const Home = () => {
                     <p className="font-bold text-2xl blue-green-gradient-text  drop-shadow-md pt-24 pb-16 text-center">
                         How to use the visualization tool:
                     </p>
+                    <div>
+                        <IndexVisLayout step={steps[0]} />
+                    </div>
                 </div>
             </div>
         </div>

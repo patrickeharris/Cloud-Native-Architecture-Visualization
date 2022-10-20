@@ -26,6 +26,7 @@ const Knot = () => {
         <div>
             <InterNodeVisLayout
                 graphColorFn={getColor}
+                hasThreshold={true}
                 antipatternJSON={theKnotData}
             ></InterNodeVisLayout>
         </div>

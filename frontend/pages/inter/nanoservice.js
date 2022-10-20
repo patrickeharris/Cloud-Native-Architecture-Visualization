@@ -43,6 +43,7 @@ const Nanoservice = () => {
             <InterNodeVisLayout
                 graphColorFn={getColor}
                 antipatternJSON={nanoData}
+                hasThreshold={true}
             ></InterNodeVisLayout>
         </div>
     );

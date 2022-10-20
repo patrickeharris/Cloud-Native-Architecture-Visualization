@@ -43,6 +43,7 @@ const Bottleneck = () => {
             <InterNodeVisLayout
                 graphColorFn={getColor}
                 antipatternJSON={bottleneckData}
+                hasThreshold={true}
             ></InterNodeVisLayout>
         </div>
     );
