@@ -91,3 +91,15 @@ export function getDuplicates(node, graph) {
     }
     return count;
 }
+
+export function getNeighborsLinks(node, links){
+    let count = 0;
+    let {nodes} = getNeighbors(node, links);
+    for(const n in nodes) {
+        if(nodes[n].id != node.id) {
+            count += getNeighbors(nodes[n], links).nodes.length / 2;
+        }
+    }
+
+    return count;
+}

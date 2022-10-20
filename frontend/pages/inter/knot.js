@@ -1,7 +1,7 @@
 import React from "react";
 import theKnotData from "../../utils/antipatterns/the_knot.json";
 import InterNodeVisLayout from "../../components/antipatterns/InterNodeVisLayout";
-import { getNeighbors } from "../../utils/visualizer/nodeFunctions";
+import { getNeighborsLinks } from "../../utils/visualizer/nodeFunctions";
 import { useAtom } from "jotai";
 import { graphDataAtom } from "../../utils/atoms";
 
@@ -9,16 +9,13 @@ const Knot = () => {
     const [graphData] = useAtom(graphDataAtom);
 
     function getColor(node, threshold) {
-        let { nodes, links } = graphData;
-        let numNeighbors = getNeighbors(node, links).nodes.length;
+        let { links } = graphData;
+        let totalLinks = getNeighborsLinks(node, links);
+        console.log(totalLinks + " for " + node.id);
 
-        if (numNeighbors > threshold) {
+        if (totalLinks > threshold) {
             return `rgb(255,0,0)`;
         }
-        if (numNeighbors > threshold / 2) {
-            return `rgb(255,160,0)`;
-        }
-
         return `rgb(0,255,0)`;
     }
 
