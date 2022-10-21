@@ -13,8 +13,6 @@ const tabs = [
             { name: "Knot", href: "/inter/knot" },
             { name: "Bottleneck", href: "/inter/bottleneck" },
             { name: "Nanoservice", href: "/inter/nanoservice" },
-            { name: "Sand Pile", href: "/inter/sandpile" },
-            { name: "Service Chain", href: "/inter/service-chain" },
             {
                 name: "Duplicated Service",
                 href: "/inter/duplicated-service",
@@ -23,6 +21,8 @@ const tabs = [
                 name: "Shared Persistency",
                 href: "/inter/shared-persistency",
             },
+            { name: "Sand Pile", href: "/inter/sandpile" },
+            { name: "Service Chain", href: "/inter/service-chain" },
             {
                 name: "Scattered Parasitic Functionality",
                 href: "/inter/scattered-parasitic",
