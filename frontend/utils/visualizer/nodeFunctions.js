@@ -9,7 +9,7 @@ export function getShape(type) {
         type === "pipeline"
     ) {
         return 1;
-    } else if (type === "customer" || "srcSink") {
+    } else if (type === "customer" || type === "srcSink") {
         return 2;
     } else if (type === "archive" || type === "database" || type === "bucket") {
         return 3;
