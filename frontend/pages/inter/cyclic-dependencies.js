@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import InterNodeVisLayout from "../../components/antipatterns/InterNodeVisLayout";
-import { getNeighbors } from "../../utils/visualizer/nodeFunctions";
 import cyclicDependencyData from "../../utils/antipatterns/cyclic_dependency.json";
 import { Graph } from "../../utils/graphAlgorithms";
 import { useAtom } from "jotai";
@@ -29,24 +28,19 @@ const CyclicDependencies = () => {
             });
             res = graph.getStrongComponent(links[0].source.id);
         }
-
         setSccs(res);
         return res;
     };
     useEffect(getSccs, []);
 
-    function getColor(node, threshold) {
+    function getColor(node) {
         let color = null;
         if (!sccs) {
             sccs = getSccs();
         }
-        sccs.forEach((scc, index) => {
-            if (scc.includes(node.id)) {
-                if (scc.length >= threshold) {
-                    color = `rgb(255,0,0)`;
-                } else if (scc.length >= threshold / 2) {
-                    color = `rgb(255,160,0)`;
-                }
+        sccs.forEach((scc) => {
+            if (scc.length > 1 &&  scc.includes(node.id)) {
+                color = `rgb(255,0,0)`;
             }
             if (color) return;
         });

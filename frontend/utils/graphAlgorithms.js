@@ -41,28 +41,18 @@ export class Graph {
         // Mark vertex as visited
         visited[vertex] = true;
 
-        var stack = [vertex];
-
-        while (stack.length > 0) {
-            // Get a node from stack
-            var nextNode = stack.pop();
-
-            // Invoke given function
-            callback(nextNode);
-
-            // Iterate adjacent nodes
-            if (list[nextNode]) {
-                // console.log('stack', stack)
-                for (var neighbor of list[nextNode]) {
-                    // If the vertex is not visited, push each nodes to stack
-                    if (!visited[neighbor]) {
-                        stack.push(neighbor);
-                        visited[neighbor] = true;
-                    }
+        // Iterate adjacent nodes
+        if (list[vertex]) {
+            for (var neighbor of list[vertex]) {
+                // If the vertex is not visited, push each nodes to stack
+                if (!visited[neighbor]) {
+                    this.dfs(list, neighbor, callback, visited);
                 }
             }
         }
-    }
+
+        callback(vertex);
+        }
 
     getStrongComponent(vertex) {
         if (vertex && !this.list[vertex]) {
@@ -80,7 +70,6 @@ export class Graph {
         var reverseEdgeGraph = getReverseGraph(this.list);
         var stack = [];
         var visited = {};
-
         for (var vertex in this.list) {
             this.dfs(
                 null,
