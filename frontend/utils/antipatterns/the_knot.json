@@ -9,7 +9,7 @@
       "detection": "Given a specified threshold, if the degree of a node plus the degree of all of its neighbors is greater than the threshold, then that node is a part of the knot.",
       "consequences": "This decreases flexibility and reusability and makes it difficult to maintain and evolve these services. Due to the complex architecture, service response times may be higher and the availability of their abstractions may be lower.",
       "cause": "Very complex or rapidly evolving business processes may cause such a harmful net of dependencies.",
-      "solution": "",
+      "solution": "Combine the aspects of the knot into one larger aspect.",
       "example": "The threshold given is 3. If A has a degree of 2, and its neighbors B and C have a degree of 2, then A is considered in the knot.",
       "sources": [
         "@book{rotem2012soa,title={SOA patterns}, author={Rotem-Gal-Oz, Arnon and Bruno, Eric and Dahan, Udi}, year={2012}, publisher={Manning}}",
