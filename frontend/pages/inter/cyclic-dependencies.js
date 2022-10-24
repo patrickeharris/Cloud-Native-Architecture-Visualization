@@ -13,8 +13,8 @@ const CyclicDependencies = () => {
     const [graphData, setGraphData] = useAtom(graphDataAtom);
     const [sccs, setSccs] = useState();
 
-    const getSccs = () => {
-        const { links } = graphData;
+    const getSccs = (cyclicData) => {
+        const { links } = cyclicData;
         var graph = new Graph();
 
         let res;
@@ -34,7 +34,7 @@ const CyclicDependencies = () => {
     };
     useEffect(() => {
         setGraphData(cyclicData);
-        getSccs();
+        getSccs(cyclicData);
     }, []);
 
     function getColor(node) {

@@ -26,10 +26,7 @@ export function getShape(type) {
 export function getNeighbors(node, links) {
     return {
         nodeLinks: links.filter((link) => {
-            return (
-                link.source.nodeID === node.nodeID ||
-                link.target.nodeID === node.nodeID
-            );
+            return link.source.id === node.id || link.target.id === node.id;
         }),
         nodes: links.reduce(
             (neighbors, link) => {
@@ -60,43 +57,44 @@ export function resetView(graphRef, initCoords) {
     reset(graphRef);
 }
 
-const levenshteinDistance = (str1 = '', str2 = '') => {
-    const track = Array(str2.length + 1).fill(null).map(() =>
-    Array(str1.length + 1).fill(null));
+const levenshteinDistance = (str1 = "", str2 = "") => {
+    const track = Array(str2.length + 1)
+        .fill(null)
+        .map(() => Array(str1.length + 1).fill(null));
     for (let i = 0; i <= str1.length; i += 1) {
-       track[0][i] = i;
+        track[0][i] = i;
     }
     for (let j = 0; j <= str2.length; j += 1) {
-       track[j][0] = j;
+        track[j][0] = j;
     }
     for (let j = 1; j <= str2.length; j += 1) {
-       for (let i = 1; i <= str1.length; i += 1) {
-          const indicator = str1[i - 1] === str2[j - 1] ? 0 : 1;
-          track[j][i] = Math.min(
-             track[j][i - 1] + 1, // deletion
-             track[j - 1][i] + 1, // insertion
-             track[j - 1][i - 1] + indicator, // substitution
-          );
-       }
+        for (let i = 1; i <= str1.length; i += 1) {
+            const indicator = str1[i - 1] === str2[j - 1] ? 0 : 1;
+            track[j][i] = Math.min(
+                track[j][i - 1] + 1, // deletion
+                track[j - 1][i] + 1, // insertion
+                track[j - 1][i - 1] + indicator // substitution
+            );
+        }
     }
     return track[str2.length][str1.length];
- };
+};
 
 export function getDuplicates(node, graph) {
     let count = 0;
-    for(const vertex in graph){
-        if(levenshteinDistance(graph[vertex].id, node.id) < 3){
+    for (const vertex in graph) {
+        if (levenshteinDistance(graph[vertex].id, node.id) < 3) {
             count++;
         }
     }
     return count;
 }
 
-export function getNeighborsLinks(node, links){
+export function getNeighborsLinks(node, links) {
     let count = 0;
-    let {nodes} = getNeighbors(node, links);
-    for(const n in nodes) {
-        if(nodes[n].id != node.id) {
+    let { nodes } = getNeighbors(node, links);
+    for (const n in nodes) {
+        if (nodes[n].id != node.id) {
             count += getNeighbors(nodes[n], links).nodes.length / 2;
         }
     }
