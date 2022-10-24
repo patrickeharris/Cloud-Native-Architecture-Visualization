@@ -1,12 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
 import theKnotData from "../../utils/antipatterns/the_knot.json";
 import InterNodeVisLayout from "../../components/antipatterns/InterNodeVisLayout";
 import { getNeighborsLinks } from "../../utils/visualizer/nodeFunctions";
 import { useAtom } from "jotai";
 import { graphDataAtom } from "../../utils/atoms";
+import knotData from "../../public/data/knot-model.json";
 
 const Knot = () => {
-    const [graphData] = useAtom(graphDataAtom);
+    const [graphData, setGraphData] = useAtom(graphDataAtom);
+
+    useEffect(() => {
+        setGraphData(knotData);
+    }, []);
 
     function getColor(node, threshold) {
         let { links } = graphData;

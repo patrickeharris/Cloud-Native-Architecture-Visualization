@@ -2,14 +2,6 @@ import React, { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
 import IndexVisLayout from "../components/general/IndexGraphLayout";
 
-const steps = [
-    {
-        title: "Welcome",
-        number: 1,
-        text: "Walk through the following steps to explore the graph!",
-    },
-];
-
 /**
  * This page renders the 3d force graph.
  *
@@ -81,12 +73,6 @@ const Home = () => {
                             </ul>
                         </div>
                     </p>
-                    <p className="font-bold text-2xl blue-green-gradient-text  drop-shadow-md pt-24 pb-16 text-center">
-                        How to use the visualization tool:
-                    </p>
-                    <div>
-                        <IndexVisLayout step={steps[0]} />
-                    </div>
                 </div>
             </div>
         </div>

@@ -11,50 +11,6 @@ const tabs = [
                 href: "/inter/cyclic-dependencies",
             },
             { name: "Knot", href: "/inter/knot" },
-            { name: "Bottleneck", href: "/inter/bottleneck" },
-            { name: "Nanoservice", href: "/inter/nanoservice" },
-            {
-                name: "Duplicated Service",
-                href: "/inter/duplicated-service",
-            },
-            {
-                name: "Shared Persistency",
-                href: "/inter/shared-persistency",
-            },
-            { name: "Sand Pile", href: "/inter/sandpile" },
-            { name: "Service Chain", href: "/inter/service-chain" },
-            {
-                name: "Scattered Parasitic Functionality",
-                href: "/inter/scattered-parasitic",
-            },
-            {
-                name: "Stovepipe Service",
-                href: "/inter/stovepipe-service",
-            },
-            {
-                name: "Wrong Cuts",
-                href: "/inter/wrong-cuts",
-            },
-        ],
-    },
-    {
-        section: "Intra-node antipatterns",
-        tabs: [
-            { name: "Chatty Service", href: "/intra/chatty" },
-            { name: "Mega Service", href: "/intra/megaservice" },
-            {
-                name: "Low Cohesive Operations",
-                href: "/intra/low-cohesion",
-            },
-        ],
-    },
-    {
-        section: "Other antipatterns",
-        tabs: [
-            {
-                name: "...",
-                href: "/antipatterns/cyclic-dependencies",
-            },
         ],
     },
 ];

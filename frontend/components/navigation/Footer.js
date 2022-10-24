@@ -7,8 +7,6 @@ const logos = [
         icon: <i className="fa-brands fa-xl fa-github"></i>,
         href: "https://github.com/austinth127/antipatternattern-architecture-visualization",
     },
-    { icon: <i className="fa-brands fa-xl fa-google-drive"></i>, href: "" },
-    { icon: <i className="fa-solid fa-xl fa-book"></i>, href: "" },
 ];
 
 const Footer = ({ ...props }) => {

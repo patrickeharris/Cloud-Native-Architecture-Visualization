@@ -3,6 +3,7 @@ import InterNodeVisLayout from "../../components/antipatterns/InterNodeVisLayout
 import cyclicDependencyData from "../../utils/antipatterns/cyclic_dependency.json";
 import { Graph } from "../../utils/graphAlgorithms";
 import { useAtom } from "jotai";
+import cyclicData from "../../public/data/cyclic-model.json";
 import { graphDataAtom } from "../../utils/atoms";
 
 /**
@@ -31,7 +32,10 @@ const CyclicDependencies = () => {
         setSccs(res);
         return res;
     };
-    useEffect(getSccs, []);
+    useEffect(() => {
+        setGraphData(cyclicData);
+        getSccs();
+    }, []);
 
     function getColor(node) {
         let color = null;
@@ -39,7 +43,7 @@ const CyclicDependencies = () => {
             sccs = getSccs();
         }
         sccs.forEach((scc) => {
-            if (scc.length > 1 &&  scc.includes(node.id)) {
+            if (scc.length > 1 && scc.includes(node.id)) {
                 color = `rgb(255,0,0)`;
             }
             if (color) return;

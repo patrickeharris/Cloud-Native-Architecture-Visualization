@@ -1,5 +1,5 @@
 import { atom } from "jotai";
-import data from "../public/data/knot-model.json";
+import data from "../public/data/red-hat.json";
 
 /*
  * Jotai is a global state management library. We do this by defining
