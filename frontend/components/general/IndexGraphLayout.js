@@ -17,6 +17,13 @@ const IndexVisLayout = ({ step }) => {
     const [graphData] = useAtom(graphDataAtom);
     const [dimensions, setDimensions] = useState();
 
+    useEffect(() => {
+        if (typeof window == "undefined") return;
+        setDimensions({
+            width: window.innerWidth / 2,
+            height: window.innerHeight / 1.5,
+        });
+    }, []);
     const { asPath } = useRouter();
 
     function getColor(node, threshold) {
@@ -35,14 +42,6 @@ const IndexVisLayout = ({ step }) => {
     if (typeof graphData == "undefined" || typeof window == "undefined") {
         return <></>;
     }
-
-    useEffect(() => {
-        if (typeof window == "undefined") return;
-        setDimensions({
-            width: window.innerWidth / 2,
-            height: window.innerHeight / 1.5,
-        });
-    }, []);
 
     return (
         <div className="flex flex-col justify-center items-center w-full h-screen relative z-10 gap-8">
