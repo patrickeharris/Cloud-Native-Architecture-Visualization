@@ -4,6 +4,7 @@ import { Graph } from "../utils/graphAlgorithms";
 import { useAtom } from "jotai";
 import { graphDataAtom } from "../utils/atoms";
 import { useRouter } from "next/router";
+import { getNeighborsLinks } from "../utils/visualizer/nodeFunctions";
 
 const TestPattern = () => {
     const [graphData, setGraphData] = useAtom(graphDataAtom);
@@ -58,13 +59,13 @@ const getGraphDataAndColorFn = async (pattern, key) => {
 
     switch (pattern) {
         case "cyclic-deps-s":
-            data = await import("../public/data/cyclic-model.json");
+            data = await import("../public/data/cyclic-simple.json");
             antiJson = await import(
                 "../utils/antipatterns/cyclic_dependency.json"
             );
             break;
         case "knot-s":
-            data = await import("../public/data/knot-model.json");
+            data = await import("../public/data/knot-simple.json");
             antiJson = await import("../utils/antipatterns/the_knot.json");
             hasThreshold = true;
             break;
