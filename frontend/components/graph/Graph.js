@@ -35,7 +35,7 @@ const GraphComponent = ({
     const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
     const [threshold, setThreshold] = useAtom(couplingThresholdAtom);
 
-    const [graphData] = useAtom(graphDataAtom);
+    const [graphData, setGraphData] = useAtom(graphDataAtom);
 
     const [initCoords, setInitCoords] = useAtom(initCoordsAtom);
     const [initRotation, setInitRotation] = useAtom(initRotationAtom);
@@ -70,7 +70,6 @@ const GraphComponent = ({
 
     useEffect(() => {
         if (isIntraNode == true) {
-            console.log("here");
             var grid = new THREE.GridHelper(500, 20);
             grid.position.set(0, -250, 0);
             graphRef.current.scene().add(grid);
@@ -97,6 +96,18 @@ const GraphComponent = ({
     useEffect(() => {
         if (typeof graphData.links[0].source == "string") return;
     }, [search]);
+
+    useEffect(() => {
+        const handleRouteChange = () => {
+            router.reload();
+        };
+
+        router.events.on("routeChangeComplete", handleRouteChange);
+
+        return () => {
+            router.events.off("routeChangeComplete", handleRouteChange);
+        };
+    }, [router]);
 
     // Highlight neighbors
     const getHighlightNeighbors = (node) => {
@@ -290,8 +301,11 @@ const GraphComponent = ({
             ref={graphRef}
             backgroundColor={"rgba(0,0,0,0)"}
             enableNodeDrag={false}
-            warmupTicks={100}
-            onEngineTick={() => setHasLoaded(true)}
+            warmupTicks={1000}
+            onEngineTick={() => setHasLoaded(false)}
+            onEngineStop={() => {
+                setGraphData(null);
+            }}
         ></ForceGraph3D>
     );
 
