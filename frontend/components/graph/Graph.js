@@ -40,6 +40,7 @@ const GraphComponent = ({
     const [initCoords, setInitCoords] = useAtom(initCoordsAtom);
     const [initRotation, setInitRotation] = useAtom(initRotationAtom);
     const [search] = useAtom(graphSearchAtom);
+    const [hasLoaded, setHasLoaded] = useState(false);
 
     const router = useRouter();
 
@@ -60,14 +61,12 @@ const GraphComponent = ({
 
         setInitCoords({ x, y, z });
         setInitRotation(graphRef.current.camera().quaternion);
+        updateHighlight();
     }, [window.innerWidth, window.innerHeight]);
 
-    // This is a hack
     useEffect(() => {
-        router.events.on("routeChangeComplete", () => {
-            router.reload();
-        });
-    }, []);
+        updateHighlight();
+    }, [graphData, threshold, hasLoaded]);
 
     useEffect(() => {
         if (isIntraNode == true) {
@@ -254,6 +253,10 @@ const GraphComponent = ({
         return group;
     };
 
+    if (!graphData) {
+        return <></>;
+    }
+
     const Graph = (
         <ForceGraph3D
             //  Setup shapes
@@ -287,6 +290,8 @@ const GraphComponent = ({
             ref={graphRef}
             backgroundColor={"rgba(0,0,0,0)"}
             enableNodeDrag={false}
+            warmupTicks={100}
+            onEngineTick={() => setHasLoaded(true)}
         ></ForceGraph3D>
     );
 

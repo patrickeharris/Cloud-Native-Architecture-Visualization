@@ -16,7 +16,6 @@ const Knot = () => {
     function getColor(node, threshold) {
         let { links } = graphData;
         let totalLinks = getNeighborsLinks(node, links);
-        // console.log(totalLinks + " for " + node.id);
 
         if (totalLinks > threshold) {
             return `rgb(255,0,0)`;
