@@ -3,12 +3,9 @@ import InterNodeVisLayout from "../../components/antipatterns/InterNodeVisLayout
 import cyclicDependencyData from "../../utils/antipatterns/cyclic_dependency.json";
 import { Graph } from "../../utils/graphAlgorithms";
 import { useAtom } from "jotai";
-import cyclicData from "../../public/data/test-cyclic.json";
+import cyclicData from "../../public/data/cyclic-model.json";
 import { graphDataAtom } from "../../utils/atoms";
 
-/**
- * @todo This is broken
- */
 const CyclicDependencies = () => {
     const [graphData, setGraphData] = useAtom(graphDataAtom);
     const [sccs, setSccs] = useState();
