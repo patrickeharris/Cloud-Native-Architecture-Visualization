@@ -44,7 +44,7 @@ const Home = () => {
                         to recognize these bad practices and avoid them while
                         developing microservices.
                     </p>
-                    <p className="font-normal">
+                    <div className="font-normal">
                         <div className="pb-8 text-2xl  font-semibold">
                             Some vocabulary we will be using:
                         </div>
@@ -72,7 +72,7 @@ const Home = () => {
                                 </li>
                             </ul>
                         </div>
-                    </p>
+                    </div>
                 </div>
             </div>
         </div>

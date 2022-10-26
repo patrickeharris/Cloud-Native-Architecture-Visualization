@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import { useRouter } from "next/router";
+import React, { useEffect, useState } from "react";
 import NavItem from "./NavItem";
 
 const tabs = [
@@ -23,6 +24,19 @@ const tabs = [
  */
 const Navbar = ({ ...props }) => {
     const [navOpen, setNavOpen] = useState();
+    const router = useRouter();
+
+    useEffect(() => {
+        const handleRouteChange = () => {
+            setNavOpen(false);
+        };
+
+        router.events.on("routeChangeComplete", handleRouteChange);
+
+        return () => {
+            router.events.off("routeChangeComplete", handleRouteChange);
+        };
+    }, [router]);
 
     return (
         <div
