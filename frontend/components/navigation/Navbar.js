@@ -14,6 +14,16 @@ const tabs = [
             { name: "Knot", href: "/inter/knot" },
         ],
     },
+    {
+        section: "Test antipatterns",
+        tabs: [
+            {
+                name: "Cyclical Dependencies",
+                href: "/test/cyclic-dependencies",
+            },
+            { name: "Knot", href: "/test/knot" },
+        ],
+    },
 ];
 
 /**
