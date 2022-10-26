@@ -65,7 +65,9 @@ const GraphComponent = ({
     }, [window.innerWidth, window.innerHeight]);
 
     useEffect(() => {
-        updateHighlight();
+        if (hasLoaded) {
+            updateHighlight();
+        }
     }, [graphData, threshold, hasLoaded]);
 
     useEffect(() => {
@@ -96,18 +98,6 @@ const GraphComponent = ({
     useEffect(() => {
         if (typeof graphData.links[0].source == "string") return;
     }, [search]);
-
-    useEffect(() => {
-        const handleRouteChange = () => {
-            router.reload();
-        };
-
-        router.events.on("routeChangeComplete", handleRouteChange);
-
-        return () => {
-            router.events.off("routeChangeComplete", handleRouteChange);
-        };
-    }, [router]);
 
     // Highlight neighbors
     const getHighlightNeighbors = (node) => {
@@ -301,11 +291,8 @@ const GraphComponent = ({
             ref={graphRef}
             backgroundColor={"rgba(0,0,0,0)"}
             enableNodeDrag={false}
-            warmupTicks={1000}
-            onEngineTick={() => setHasLoaded(false)}
-            onEngineStop={() => {
-                setGraphData(null);
-            }}
+            warmupTicks={100}
+            onEngineTick={() => setHasLoaded(true)}
         ></ForceGraph3D>
     );
 

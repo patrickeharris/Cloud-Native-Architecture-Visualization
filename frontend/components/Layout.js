@@ -30,7 +30,6 @@ const Layout = ({ children, ...props }) => {
             className="h-fit text-gray-50 overflow-x-clip"
             style={gradientBackground}
         >
-            <Navbar />
             <main className="min-h-screen">{children}</main>
             <Footer></Footer>
         </div>
