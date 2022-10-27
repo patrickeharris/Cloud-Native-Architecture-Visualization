@@ -56,7 +56,7 @@ const getGraphDataAndColorFn = async (pattern, key) => {
 
     switch (pattern) {
         case "cyclic-deps-s":
-            data = await import("../public/data/cyclic-simple.json");
+            data = await import("../public/data/cyclic-verysimple.json");
             antiJson = await import(
                 "../utils/antipatterns/cyclic_dependency.json"
             );
