@@ -58,7 +58,6 @@ const GraphComponent = ({
         }
 
         let { x, y, z } = graphRef.current.cameraPosition();
-        graphRef.current.d3Force("charge").strength(-120); // the default is -30
 
         setInitCoords({ x, y, z });
         setInitRotation(graphRef.current.camera().quaternion);
@@ -294,6 +293,7 @@ const GraphComponent = ({
             enableNodeDrag={false}
             warmupTicks={100}
             onEngineTick={() => setHasLoaded(true)}
+            d3VelocityDecay={0.25}
         ></ForceGraph3D>
     );
 
