@@ -77,6 +77,12 @@ const getGraphDataAndColorFn = async (pattern, key) => {
                 "../utils/antipatterns/cyclic_dependency.json"
             );
             break;
+        case "practice":
+            data = await import("../public/data/cyclic-simple.json");
+            antiJson = await import(
+                "../utils/antipatterns/chatty_service.json"
+            );
+            break;
         default:
             data = await import("../public/data/red-hat.json");
             antiJson = await import("../utils/antipatterns/the_knot.json");
