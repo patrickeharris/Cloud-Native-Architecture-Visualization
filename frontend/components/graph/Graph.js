@@ -58,6 +58,7 @@ const GraphComponent = ({
         }
 
         let { x, y, z } = graphRef.current.cameraPosition();
+        graphRef.current.d3Force("charge").strength(-120); // the default is -30
 
         setInitCoords({ x, y, z });
         setInitRotation(graphRef.current.camera().quaternion);
@@ -201,9 +202,9 @@ const GraphComponent = ({
     const textNode = (node) => {
         const sprite = new SpriteText(node.id);
         sprite.color = getGraphColor(node);
-        sprite.textHeight = 2;
+        sprite.textHeight = 3;
         sprite.fontWeight = "bold";
-        sprite.backgroundColor = "rgba(10,10,10,0.2)";
+        sprite.backgroundColor = "rgba(10,10,10, 0.5)";
         sprite.padding = 2;
         return sprite;
     };
@@ -275,7 +276,7 @@ const GraphComponent = ({
             }
             // Width of data transfer points
             linkDirectionalParticleWidth={3}
-            linkDirectionalArrowLength={6}
+            linkDirectionalArrowLength={8}
             linkDirectionalArrowRelPos={1}
             // Select node on left click
             onNodeClick={handleNodeClick}

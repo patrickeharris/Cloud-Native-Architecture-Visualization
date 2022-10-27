@@ -28,13 +28,10 @@ const TestPattern = () => {
     }, [router.query, key, pattern, setGraphData]);
 
     if (!pattern || !graphData) {
-        console.log("here");
         return <></>;
     }
 
     if (!graphData || typeof colorFn !== "function" || !antipatternJSON) {
-        console.log("here2");
-
         return <></>;
     }
 
@@ -70,7 +67,7 @@ const getGraphDataAndColorFn = async (pattern, key) => {
             hasThreshold = true;
             break;
         case "knot-c":
-            data = await import("../public/data/train-ticket.json");
+            data = await import("../public/data/test-knot.json");
             antiJson = await import("../utils/antipatterns/the_knot.json");
             hasThreshold = true;
             break;
