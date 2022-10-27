@@ -6,7 +6,6 @@
         { "id": "ts-ticketinfo-service", "nodeType": "service" },
         { "id": "ts-price-service", "nodeType": "service" },
         { "id": "ts-train-service", "nodeType": "service" },
-        { "id": "ts-station-service", "nodeType": "service" },
         { "id": "ts-route-service", "nodeType": "service" },
         { "id": "ts-cancel-service", "nodeType": "service" },
         { "id": "ts-order-service", "nodeType": "service" },
@@ -91,19 +90,6 @@
 
         {
             "source": "ts-basic-service",
-            "target": "ts-station-service",
-            "functions": [
-                {
-                    "functionType": "GET",
-                    "arguments": "@PathVariable(value = #quot;stationNameForId#quot;) String stationName, @RequestHeader HttpHeaders headers",
-                    "returnData": "org.springframework.http.HttpEntity",
-                    "endpointName": "fdse.microservice.controller.StationController.queryForStationId"
-                }
-            ]
-        },
-
-        {
-            "source": "ts-basic-service",
             "target": "ts-route-service",
             "functions": [
                 {
@@ -130,25 +116,6 @@
                     "arguments": "@PathVariable String orderId, @RequestHeader HttpHeaders headers",
                     "returnData": "org.springframework.http.HttpEntity",
                     "endpointName": "order.controller.OrderController.getOrderById"
-                }
-            ]
-        },
-
-        {
-            "source": "ts-cancel-service",
-            "target": "ts-order-other-service",
-            "functions": [
-                {
-                    "functionType": "PUT",
-                    "arguments": "@RequestBody Order orderInfo, @RequestHeader HttpHeaders headers",
-                    "returnData": "org.springframework.http.HttpEntity",
-                    "endpointName": "other.controller.OrderOtherController.saveOrderInfo"
-                },
-                {
-                    "functionType": "GET",
-                    "arguments": "@PathVariable String orderId, @RequestHeader HttpHeaders headers",
-                    "returnData": "org.springframework.http.HttpEntity",
-                    "endpointName": "other.controller.OrderOtherController.getOrderById"
                 }
             ]
         },
@@ -330,37 +297,6 @@
         },
 
         {
-            "source": "ts-admin-basic-info-service",
-            "target": "ts-station-service",
-            "functions": [
-                {
-                    "functionType": "POST",
-                    "arguments": "@RequestBody Station station, @RequestHeader HttpHeaders headers",
-                    "returnData": "ResponseEntity<Response>",
-                    "endpointName": "fdse.microservice.controller.StationController.create"
-                },
-                {
-                    "functionType": "PUT",
-                    "arguments": "@RequestBody Station station, @RequestHeader HttpHeaders headers",
-                    "returnData": "org.springframework.http.HttpEntity",
-                    "endpointName": "fdse.microservice.controller.StationController.update"
-                },
-                {
-                    "functionType": "GET",
-                    "arguments": "@RequestHeader HttpHeaders headers",
-                    "returnData": "org.springframework.http.HttpEntity",
-                    "endpointName": "fdse.microservice.controller.StationController.query"
-                },
-                {
-                    "functionType": "DELETE",
-                    "arguments": "@RequestBody Station station, @RequestHeader HttpHeaders headers",
-                    "returnData": "ResponseEntity<Response>",
-                    "endpointName": "fdse.microservice.controller.StationController.delete"
-                }
-            ]
-        },
-
-        {
             "source": "ts-security-service",
             "target": "ts-order-service",
             "functions": [
@@ -369,19 +305,6 @@
                     "arguments": "@PathVariable Date checkDate, @PathVariable String accountId, @RequestHeader HttpHeaders headers",
                     "returnData": "org.springframework.http.HttpEntity",
                     "endpointName": "order.controller.OrderController.securityInfoCheck"
-                }
-            ]
-        },
-
-        {
-            "source": "ts-security-service",
-            "target": "ts-order-other-service",
-            "functions": [
-                {
-                    "functionType": "GET",
-                    "arguments": "@PathVariable Date checkDate, @PathVariable String accountId, @RequestHeader HttpHeaders headers",
-                    "returnData": "org.springframework.http.HttpEntity",
-                    "endpointName": "other.controller.OrderOtherController.securityInfoCheck"
                 }
             ]
         },
@@ -414,25 +337,6 @@
                     "arguments": "@PathVariable String orderId, @RequestHeader HttpHeaders headers",
                     "returnData": "org.springframework.http.HttpEntity",
                     "endpointName": "order.controller.OrderController.getOrderById"
-                }
-            ]
-        },
-
-        {
-            "source": "ts-execute-service",
-            "target": "ts-order-other-service",
-            "functions": [
-                {
-                    "functionType": "PUT",
-                    "arguments": "@PathVariable String orderId, @PathVariable int status, @RequestHeader HttpHeaders headers",
-                    "returnData": "org.springframework.http.HttpEntity",
-                    "endpointName": "other.controller.OrderOtherController.modifyOrder"
-                },
-                {
-                    "functionType": "GET",
-                    "arguments": "@PathVariable String orderId, @PathVariable int status, @RequestHeader HttpHeaders headers",
-                    "returnData": "org.springframework.http.HttpEntity",
-                    "endpointName": "other.controller.OrderOtherController.getOrderById"
                 }
             ]
         },
@@ -523,19 +427,6 @@
 
         {
             "source": "ts-preserve-other-service",
-            "target": "ts-order-other-service",
-            "functions": [
-                {
-                    "functionType": "POST",
-                    "arguments": "@RequestBody Order createOrder, @RequestHeader HttpHeaders headers",
-                    "returnData": "org.springframework.http.HttpEntity",
-                    "endpointName": "other.controller.OrderOtherController.createNewOrder"
-                }
-            ]
-        },
-
-        {
-            "source": "ts-preserve-other-service",
             "target": "ts-assurance-service",
             "functions": [
                 {
@@ -556,19 +447,6 @@
                     "arguments": "@PathVariable String id, @RequestHeader HttpHeaders headers",
                     "returnData": "HttpEntity",
                     "endpointName": "contacts.controller.ContactsController.getContactsByContactsId"
-                }
-            ]
-        },
-
-        {
-            "source": "ts-preserve-other-service",
-            "target": "ts-station-service",
-            "functions": [
-                {
-                    "functionType": "GET",
-                    "arguments": "@PathVariable(value = #quot;stationNameForId#quot;) String stationName, @RequestHeader HttpHeaders headers",
-                    "returnData": "org.springframework.http.HttpEntity",
-                    "endpointName": "fdse.microservice.controller.StationController.queryForStationId"
                 }
             ]
         },
@@ -626,19 +504,6 @@
 
         {
             "source": "ts-route-plan-service",
-            "target": "ts-station-service",
-            "functions": [
-                {
-                    "functionType": "GET",
-                    "arguments": "@PathVariable(value = #quot;stationNameForId#quot;) String stationName, @RequestHeader HttpHeaders headers",
-                    "returnData": "org.springframework.http.HttpEntity",
-                    "endpointName": "fdse.microservice.controller.StationController.queryForStationId"
-                }
-            ]
-        },
-
-        {
-            "source": "ts-route-plan-service",
             "target": "ts-route-service",
             "functions": [
                 {
@@ -652,19 +517,6 @@
                     "arguments": "@PathVariable String startId, @PathVariable String terminalId, @RequestHeader HttpHeaders headers",
                     "returnData": "org.springframework.http.HttpEntity",
                     "endpointName": "route.controller.RouteController.queryByStartAndTerminal"
-                }
-            ]
-        },
-
-        {
-            "source": "ts-order-service",
-            "target": "ts-station-service",
-            "functions": [
-                {
-                    "functionType": "POST",
-                    "arguments": "@RequestBody List<String> stationIdList, @RequestHeader HttpHeaders headers",
-                    "returnData": "org.springframework.http.HttpEntity",
-                    "endpointName": "fdse.microservice.controller.StationController.queryForNameBatch"
                 }
             ]
         },
@@ -788,19 +640,6 @@
 
         {
             "source": "ts-preserve-service",
-            "target": "ts-station-service",
-            "functions": [
-                {
-                    "functionType": "GET",
-                    "arguments": "@PathVariable(value = #quot;stationNameForId#quot;) String stationName, @RequestHeader HttpHeaders headers",
-                    "returnData": "org.springframework.http.HttpEntity",
-                    "endpointName": "fdse.microservice.controller.StationController.queryForStationId"
-                }
-            ]
-        },
-
-        {
-            "source": "ts-preserve-service",
             "target": "ts-security-service",
             "functions": [
                 {
@@ -826,19 +665,6 @@
         },
 
         {
-            "source": "ts-order-other-service",
-            "target": "ts-station-service",
-            "functions": [
-                {
-                    "functionType": "POST",
-                    "arguments": "@RequestBody List<String> stationIdList, @RequestHeader HttpHeaders headers",
-                    "returnData": "org.springframework.http.HttpEntity",
-                    "endpointName": "fdse.microservice.controller.StationController.queryForNameBatch"
-                }
-            ]
-        },
-
-        {
             "source": "ts-food-service",
             "target": "ts-food-map-service",
             "functions": [
@@ -853,19 +679,6 @@
                     "arguments": "@PathVariable String tripId, @RequestHeader HttpHeaders headers",
                     "returnData": "org.springframework.http.HttpEntity",
                     "endpointName": "food.controller.TrainFoodController.getTrainFoodOfTrip"
-                }
-            ]
-        },
-
-        {
-            "source": "ts-food-service",
-            "target": "ts-station-service",
-            "functions": [
-                {
-                    "functionType": "GET",
-                    "arguments": "@PathVariable(value = #quot;stationNameForId#quot;) String stationName, @RequestHeader HttpHeaders headers",
-                    "returnData": "org.springframework.http.HttpEntity",
-                    "endpointName": "fdse.microservice.controller.StationController.queryForStationId"
                 }
             ]
         },
@@ -903,19 +716,6 @@
         },
 
         {
-            "source": "ts-rebook-service",
-            "target": "ts-station-service",
-            "functions": [
-                {
-                    "functionType": "GET",
-                    "arguments": "@PathVariable(value = #quot;stationIdForName#quot;) String stationId, @RequestHeader HttpHeaders headers",
-                    "returnData": "org.springframework.http.HttpEntity",
-                    "endpointName": "fdse.microservice.controller.StationController.queryById"
-                }
-            ]
-        },
-
-        {
             "source": "ts-travel-plan-service",
             "target": "ts-seat-service",
             "functions": [
@@ -924,19 +724,6 @@
                     "arguments": "@RequestBody Seat seatRequest, @RequestHeader HttpHeaders headers",
                     "returnData": "org.springframework.http.HttpEntity",
                     "endpointName": "seat.controller.SeatController.getLeftTicketOfInterval"
-                }
-            ]
-        },
-
-        {
-            "source": "ts-travel-plan-service",
-            "target": "ts-station-service",
-            "functions": [
-                {
-                    "functionType": "POST",
-                    "arguments": "@RequestBody List<String> stationIdList, @RequestHeader HttpHeaders headers",
-                    "returnData": "org.springframework.http.HttpEntity",
-                    "endpointName": "fdse.microservice.controller.StationController.queryForNameBatch"
                 }
             ]
         },
@@ -1068,19 +855,6 @@
         },
 
         {
-            "source": "ts-inside-payment-service",
-            "target": "ts-order-other-service",
-            "functions": [
-                {
-                    "functionType": "PUT",
-                    "arguments": "@PathVariable String orderId, @PathVariable int status, @RequestHeader HttpHeaders headers",
-                    "returnData": "org.springframework.http.HttpEntity",
-                    "endpointName": "other.controller.OrderOtherController.modifyOrder"
-                }
-            ]
-        },
-
-        {
             "source": "ts-seat-service",
             "target": "ts-order-service",
             "functions": [
@@ -1089,19 +863,6 @@
                     "arguments": "@RequestBody Seat seatRequest, @RequestHeader HttpHeaders headers",
                     "returnData": "org.springframework.http.HttpEntity",
                     "endpointName": "order.controller.OrderController.getTicketListByDateAndTripId"
-                }
-            ]
-        },
-
-        {
-            "source": "ts-seat-service",
-            "target": "ts-order-other-service",
-            "functions": [
-                {
-                    "functionType": "GET",
-                    "arguments": "@RequestBody Seat seatRequest, @RequestHeader HttpHeaders headers",
-                    "returnData": "org.springframework.http.HttpEntity",
-                    "endpointName": "other.controller.OrderOtherController.getTicketListByDateAndTripId"
                 }
             ]
         },
