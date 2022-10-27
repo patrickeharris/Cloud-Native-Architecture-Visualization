@@ -201,9 +201,9 @@ const GraphComponent = ({
     const textNode = (node) => {
         const sprite = new SpriteText(node.id);
         sprite.color = getGraphColor(node);
-        sprite.textHeight = 2;
+        sprite.textHeight = 3;
         sprite.fontWeight = "bold";
-        sprite.backgroundColor = "rgba(10,10,10,0.2)";
+        sprite.backgroundColor = "rgba(10,10,10, 0.5)";
         sprite.padding = 2;
         return sprite;
     };
@@ -275,7 +275,7 @@ const GraphComponent = ({
             }
             // Width of data transfer points
             linkDirectionalParticleWidth={3}
-            linkDirectionalArrowLength={6}
+            linkDirectionalArrowLength={8}
             linkDirectionalArrowRelPos={1}
             // Select node on left click
             onNodeClick={handleNodeClick}
@@ -293,6 +293,7 @@ const GraphComponent = ({
             enableNodeDrag={false}
             warmupTicks={100}
             onEngineTick={() => setHasLoaded(true)}
+            d3VelocityDecay={0.25}
         ></ForceGraph3D>
     );
 
