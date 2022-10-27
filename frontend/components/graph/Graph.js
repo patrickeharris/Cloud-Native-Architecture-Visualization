@@ -190,7 +190,7 @@ const GraphComponent = ({
     const getGraphColor = (node) => {
         if (highlightNodes && highlightNodes.has(node)) {
             if (node === hoverNode) {
-                return `rgb(50,50,200)`;
+                return `rgb(252, 186, 3)`;
             } else {
                 return `rgb(0,200,200)`;
             }
@@ -203,7 +203,7 @@ const GraphComponent = ({
         sprite.color = getGraphColor(node);
         sprite.textHeight = 3;
         sprite.fontWeight = "bold";
-        sprite.backgroundColor = "rgba(10,10,10, 0.5)";
+        sprite.backgroundColor = "rgba(10,10,10, 0.6)";
         sprite.padding = 2;
         return sprite;
     };

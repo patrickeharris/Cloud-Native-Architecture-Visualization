@@ -1122,6 +1122,7 @@
         { "source": "ts-seat-service", "target": "ts-new-seat-service" },
         { "source": "ts-new-seat-service", "target": "ts-rebook-service" },
         { "source": "ts-cancel-service", "target": "ts-rebuy-service" },
-        { "source": "ts-rebuy-service", "target": "ts-cancel-service" }
+        { "source": "ts-rebuy-service", "target": "ts-cancel-service" },
+        { "source": "ts-price-service", "target": "ts-ticketinfo-service" }
     ]
 }
