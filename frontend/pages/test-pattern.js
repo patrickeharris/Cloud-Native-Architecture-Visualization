@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import InterNodeVisLayout from "../components/antipatterns/InterNodeVisLayout";
 import { Graph } from "../utils/graphAlgorithms";
 import { useAtom } from "jotai";
-import { graphDataAtom } from "../utils/atoms";
+import { couplingThresholdAtom, graphDataAtom } from "../utils/atoms";
 import { useRouter } from "next/router";
 import { getNeighborsLinks } from "../utils/visualizer/nodeFunctions";
 
@@ -13,6 +13,7 @@ const TestPattern = () => {
     const [colorFn, setColorFn] = useState();
     const [hasThreshold, setHasThreshold] = useState(false);
     const [antipatternJSON, setAntipatternJson] = useState();
+    const [threshold, setThresold] = useAtom(couplingThresholdAtom);
 
     useEffect(() => {
         if (!pattern) return;
@@ -24,6 +25,11 @@ const TestPattern = () => {
             });
             setHasThreshold(hasThreshold);
             setAntipatternJson(antiJson);
+            if (pattern == "knot-c") {
+                setThresold(12);
+            } else if (pattern == "knot-s") {
+                setThresold(8);
+            }
         });
     }, [router.query, key, pattern, setGraphData]);
 
