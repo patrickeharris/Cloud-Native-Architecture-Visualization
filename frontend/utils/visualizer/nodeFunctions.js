@@ -93,11 +93,23 @@ export function getDuplicates(node, graph) {
 export function getNeighborsLinks(node, links) {
     let count = 0;
     let { nodes } = getNeighbors(node, links);
-    for (const n in nodes) {
-        if (nodes[n].id != node.id) {
-            count += getNeighbors(nodes[n], links).nodes.length / 2;
+    let knotLinks = [];
+    nodes.forEach((curNode) => {
+        if (curNode.id != node.id) {
+            const { nodeLinks } = getNeighbors(curNode, links);
+            nodeLinks.forEach((link) => {
+                if (
+                    !knotLinks.find(
+                        (val) =>
+                            val == [link.source.id, link.target.id] ||
+                            val == [link.target.id, link.source.id]
+                    )
+                ) {
+                    knotLinks.push([link.source.id, link.target.id]);
+                }
+            });
         }
-    }
+    });
 
-    return count;
+    return knotLinks.length;
 }
