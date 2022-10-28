@@ -26,7 +26,7 @@ const TestPattern = () => {
             setHasThreshold(hasThreshold);
             setAntipatternJson(antiJson);
             if (pattern == "knot-c") {
-                setThresold(12);
+                setThresold(15);
             } else if (pattern == "knot-s") {
                 setThresold(8);
             }
