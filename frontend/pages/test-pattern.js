@@ -62,7 +62,7 @@ const getGraphDataAndColorFn = async (pattern, key) => {
             );
             break;
         case "knot-s":
-            data = await import("../public/data/knotex.json");
+            data = await import("../public/data/knot-simple.json");
             antiJson = await import("../utils/antipatterns/the_knot.json");
             hasThreshold = true;
             break;
