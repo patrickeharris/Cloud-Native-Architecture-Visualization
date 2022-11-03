@@ -13,6 +13,7 @@ import {
 } from "../../utils/atoms";
 import SpriteText from "three-spritetext";
 import { useRouter } from "next/router";
+import { lightTheme } from "../../utils/colors";
 
 /**
  * @TODO right click needs to be moved to be embedded with graph like left click
@@ -203,7 +204,8 @@ const GraphComponent = ({
         sprite.color = getGraphColor(node);
         sprite.textHeight = 3;
         sprite.fontWeight = "bold";
-        sprite.backgroundColor = "rgba(10,10,10, 0.6)";
+        sprite.backgroundColor = lightTheme.spriteBGColor;
+        // "rgba(10,10,10, 0.6)"
         sprite.padding = 2;
         return sprite;
     };
@@ -289,11 +291,12 @@ const GraphComponent = ({
             width={dimensions.width}
             height={dimensions.height}
             ref={graphRef}
-            backgroundColor={"rgba(0,0,0,0)"}
+            backgroundColor={"rgb(255,255,255)"}
             enableNodeDrag={false}
             warmupTicks={100}
             onEngineTick={() => setHasLoaded(true)}
             d3VelocityDecay={0.25}
+            linkColor={() => lightTheme.arrowColor}
         ></ForceGraph3D>
     );
 

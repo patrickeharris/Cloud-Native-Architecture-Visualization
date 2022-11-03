@@ -27,8 +27,8 @@ const Layout = ({ children, ...props }) => {
     const { asPath } = useRouter();
     return (
         <div
-            className="h-fit text-gray-50 overflow-x-clip"
-            style={gradientBackground}
+            className="h-fit text-gray-50 overflow-x-clip bg-white"
+            // style={gradientBackground}
         >
             <main className="min-h-screen">{children}</main>
             <Footer></Footer>

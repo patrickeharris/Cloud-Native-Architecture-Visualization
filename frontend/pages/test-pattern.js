@@ -5,6 +5,7 @@ import { useAtom } from "jotai";
 import { couplingThresholdAtom, graphDataAtom } from "../utils/atoms";
 import { useRouter } from "next/router";
 import { getNeighborsLinks } from "../utils/visualizer/nodeFunctions";
+import { lightTheme } from "../utils/colors";
 
 const TestPattern = () => {
     const [graphData, setGraphData] = useAtom(graphDataAtom);
@@ -144,23 +145,23 @@ const getKnotColor = (node, threshold, data) => {
     let totalLinks = getNeighborsLinks(node, links);
 
     if (totalLinks > threshold) {
-        return `rgb(255,0,0)`;
+        return lightTheme.red;
     }
-    return `rgb(0,255,0)`;
+    return lightTheme.green;
 };
 
 const getCyclicColor = (node, sccs) => {
     let color = null;
     sccs.forEach((scc) => {
         if (scc.length > 1 && scc.includes(node.id)) {
-            color = `rgb(255,0,0)`;
+            color = lightTheme.red;
         }
         if (color) return;
     });
 
-    return color ?? `rgb(0,255,0)`;
+    return color ?? lightTheme.green;
 };
 
 const defColorFn = () => {
-    return `rgb(0,255,0)`;
+    return lightTheme.green;
 };

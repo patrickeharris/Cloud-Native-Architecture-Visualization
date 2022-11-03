@@ -7,6 +7,7 @@ import StepDescription from "./StepDesc";
 import { graphDataAtom } from "../../utils/atoms";
 import { useAtom } from "jotai";
 import { getNeighbors } from "../../utils/visualizer/nodeFunctions";
+import { lightTheme } from "../../utils/colors";
 
 const IndexVisLayout = ({ step }) => {
     /**
@@ -31,13 +32,13 @@ const IndexVisLayout = ({ step }) => {
         let numNeighbors = getNeighbors(node, links).nodes.length;
 
         if (numNeighbors > threshold) {
-            return `rgb(255,0,0)`;
+            return lightTheme.green;
         }
-        if (numNeighbors > threshold / 2) {
-            return `rgb(255,160,0)`;
-        }
+        // if (numNeighbors > threshold / 2) {
+        //     return `rgb(255,160,0)`;
+        // }
 
-        return `rgb(0,255,0)`;
+        return lightTheme.red;
     }
     if (typeof graphData == "undefined" || typeof window == "undefined") {
         return <></>;
