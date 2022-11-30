@@ -3,17 +3,17 @@ import * as NodeFns from "../../utils/visualizer/nodeFunctions";
 import { CustomSinCurve } from "../../utils/visualizer/ThreeExtensions";
 import React, { useEffect, useState, useCallback } from "react";
 import ForceGraph3D, { ForceGraphMethods } from "react-force-graph-3d";
-import { useAtom } from "jotai";
+import { useAtom, useAtomValue } from "jotai";
 import {
     initCoordsAtom,
     initRotationAtom,
     graphDataAtom,
     couplingThresholdAtom,
     graphSearchAtom,
+    themeAtom,
 } from "../../utils/atoms";
 import SpriteText from "three-spritetext";
 import { useRouter } from "next/router";
-import { lightTheme } from "../../utils/colors";
 
 /**
  * @TODO right click needs to be moved to be embedded with graph like left click
@@ -42,6 +42,7 @@ const GraphComponent = ({
     const [initRotation, setInitRotation] = useAtom(initRotationAtom);
     const [search] = useAtom(graphSearchAtom);
     const [hasLoaded, setHasLoaded] = useState(false);
+    const theme = useAtomValue(themeAtom);
 
     const router = useRouter();
 
@@ -99,6 +100,8 @@ const GraphComponent = ({
     useEffect(() => {
         if (typeof graphData.links[0].source == "string") return;
     }, [search]);
+
+    useEffect(() => {}, [graphData]);
 
     // Highlight neighbors
     const getHighlightNeighbors = (node) => {
@@ -204,7 +207,7 @@ const GraphComponent = ({
         sprite.color = getGraphColor(node);
         sprite.textHeight = 3;
         sprite.fontWeight = "bold";
-        sprite.backgroundColor = lightTheme.spriteBGColor;
+        sprite.backgroundColor = theme.spriteBGColor;
         // "rgba(10,10,10, 0.6)"
         sprite.padding = 2;
         return sprite;
@@ -291,12 +294,12 @@ const GraphComponent = ({
             width={dimensions.width}
             height={dimensions.height}
             ref={graphRef}
-            backgroundColor={"rgb(255,255,255)"}
+            backgroundColor={"rgba(255,255,255, 0)"}
             enableNodeDrag={false}
             warmupTicks={100}
             onEngineTick={() => setHasLoaded(true)}
             d3VelocityDecay={0.25}
-            linkColor={() => lightTheme.arrowColor}
+            linkColor={() => theme.arrowColor}
         ></ForceGraph3D>
     );
 

@@ -9,19 +9,15 @@ const tabs = [
         tabs: [
             {
                 name: "Cyclical Dependencies",
-                href: "/inter/cyclic-dependencies",
+                href: "/internode?pattern=cyclic-dependencies",
             },
-            { name: "Knot", href: "/inter/knot" },
-        ],
-    },
-    {
-        section: "Test antipatterns",
-        tabs: [
+            { name: "Knot", href: "/internode?pattern=knot" },
+            { name: "Nanoservice", href: "/internode?pattern=nanoservice" },
+            { name: "Bottleneck", href: "/internode?pattern=bottleneck" },
             {
-                name: "Cyclical Dependencies",
-                href: "/test/cyclic-dependencies",
+                name: "Duplicated Service",
+                href: "/internode?pattern=duplicated-service",
             },
-            { name: "Knot", href: "/test/knot" },
         ],
     },
 ];
@@ -39,6 +35,8 @@ const Navbar = ({ ...props }) => {
     useEffect(() => {
         const handleRouteChange = () => {
             setNavOpen(false);
+            // Very annoying fix
+            router.reload();
         };
 
         router.events.on("routeChangeComplete", handleRouteChange);

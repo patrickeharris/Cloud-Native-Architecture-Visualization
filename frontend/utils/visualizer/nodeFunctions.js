@@ -113,3 +113,37 @@ export function getNeighborsLinks(node, links) {
 
     return knotLinks.length;
 }
+
+export function getDegreeIn(node, links) {
+    return {
+        nodeLinks: links.filter((link) => {
+            return link.target.id === node.id;
+        }),
+        nodes: links.reduce(
+            (neighbors, link) => {
+                if (link.target.id === node.id) {
+                    neighbors.push(link.source);
+                }
+                return neighbors;
+            },
+            [node]
+        ),
+    };
+}
+
+export function getDegreeOut(node, links) {
+    return {
+        nodeLinks: links.filter((link) => {
+            return link.source.id === node.id;
+        }),
+        nodes: links.reduce(
+            (neighbors, link) => {
+                if (link.source.id === node.id) {
+                    neighbors.push(link.target);
+                }
+                return neighbors;
+            },
+            [node]
+        ),
+    };
+}
