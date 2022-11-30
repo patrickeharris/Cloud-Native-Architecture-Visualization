@@ -2,7 +2,7 @@ export const lightTheme = {
     green: "rgb(16, 176, 2)",
     red: "rgb(219, 0, 15)",
     arrowColor: "rgb(10,10,10)",
-    spriteBGColor: "rgba(10,10,10, 0.8)",
+    spriteBGColor: "rgba(10,10,10, 0.6)",
 };
 
 export const darkTheme = {
