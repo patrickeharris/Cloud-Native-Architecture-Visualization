@@ -37,6 +37,8 @@ const TestPattern = () => {
             setAntipatternJson(antiJson);
             if (pattern == "knot") {
                 setThresold(15);
+            } else {
+                setThresold(8);
             }
         });
     }, [router.query, pattern, setGraphData]);
@@ -163,9 +165,9 @@ function getDupColor(theme, node, data) {
     var duplicates = getDuplicates(node, nodes);
 
     if (duplicates > 1) {
-        return theme.green;
+        return theme.red;
     }
-    return theme.red;
+    return theme.green;
 }
 
 function getBottleneckColor(theme, node, threshold, data) {
@@ -173,13 +175,13 @@ function getBottleneckColor(theme, node, threshold, data) {
     let numNeighbors = getDegreeIn(node, links).nodes.length;
 
     if (numNeighbors > threshold) {
-        return theme.green;
+        return theme.red;
     }
     if (numNeighbors > threshold / 2) {
         return `rgb(255,160,0)`;
     }
 
-    return theme.red;
+    return theme.green;
 }
 
 function getNanoColor(theme, node, threshold, data) {

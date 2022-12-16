@@ -40,15 +40,6 @@ const GraphButtonMenu = ({ graphRef }) => {
     const [initRotation] = useAtom(initRotationAtom);
     const [graphData, setGraphData] = useAtom(graphDataAtom);
 
-    /** @TODO idk what the track is or how to toggle it */
-    function toggleTrack() {
-        if (trackMenu.checked) {
-            trackMenu.checked = false;
-        } else {
-            trackMenu.checked = true;
-        }
-    }
-
     function exportGraph() {
         exportToJsonFile(graphData);
     }
@@ -148,10 +139,9 @@ const GraphButtonMenu = ({ graphRef }) => {
 
     return (
         <div className="flex flex-col gap-2 w-full h-fit">
-            {/* <GraphButton onClick={importGraph}>Import</GraphButton>
-            <GraphButton onClick={exportGraph}>Export</GraphButton> */}
+            <GraphButton onClick={importGraph}>Import</GraphButton>
+            <GraphButton onClick={exportGraph}>Export</GraphButton>
             <GraphButton onClick={screenshotGraph}>Capture Graph</GraphButton>
-            {/* <GraphButton onClick={toggleTrack}>Track Menu</GraphButton> */}
             <GraphButton onClick={forceReset}>Reset</GraphButton>
         </div>
     );
